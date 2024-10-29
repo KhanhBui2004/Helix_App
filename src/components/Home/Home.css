@@ -1,0 +1,81 @@
+body {
+  background: #d3d1d1be;
+}
+
+.container {
+  background: #ffffff;
+  max-width: 390px !important;
+  height: 100vh;
+}
+
+.content {
+  padding-top: 10px;
+  border-bottom: solid #d3d1d1be !important;
+  display: flex;
+  .content-right {
+    margin-right: 10px;
+    .logo {
+      position: relative;
+      img {
+        border-radius: 50%;
+        object-fit: cover;
+      }
+      .follow {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        .fa-circle-plus {
+          background: #fff;
+          border-radius: 50%;
+          border: solid #ffffff;
+        }
+      }
+    }
+  }
+
+  .content-left {
+    .top {
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      .username {
+        font-weight: 700;
+        font-size: 14px;
+        i {
+          margin-left: 5px;
+          color: blue;
+        }
+      }
+      .time {
+        font-size: 12px;
+        color: #989898;
+        i {
+          color: #000;
+          margin-left: 10px;
+        }
+      }
+    }
+    .title {
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+    .img-content {
+      margin-bottom: 10px;
+      img {
+        border-radius: 10px;
+        object-fit: cover;
+      }
+    }
+    .icon {
+      margin-bottom: 10px;
+      i {
+        margin-right: 15px;
+      }
+    }
+    .replies {
+      font-size: 13px;
+      color: #989898;
+      margin-bottom: 10px;
+    }
+  }
+}
