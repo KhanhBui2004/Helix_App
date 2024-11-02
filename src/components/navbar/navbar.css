@@ -23,6 +23,6 @@
     transition: background-color 0.2s ease;
   }
   .icon:hover {
-    background: #d4aeae;
+    background: rgb(151, 213, 151);
   }
 }

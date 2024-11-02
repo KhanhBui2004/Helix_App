@@ -1,5 +1,10 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from "react-router-dom";
 import "./App.css";
 import { ToastContainer } from "react-toastify";
 import SignUp from "./components/SignUp/SignUp";
@@ -7,24 +12,44 @@ import LogIn from "./components/LogIn/LogIn";
 import Home from "./components/Home/Home";
 import Navbar from "./components/navbar/navbar";
 
+function Layout() {
+  const currentLocation = useLocation();
+  const isAuthPage =
+    currentLocation.pathname === "/login" ||
+    currentLocation.pathname === "/register";
+
+  return (
+    <div>
+      {/* Nếu không phải trang login hoặc register thì chia cột */}
+      {!isAuthPage ? (
+        <div className="content">
+          <div className="col-1">
+            <Navbar />
+          </div>
+          <div className="col-11">
+            <Routes>
+              <Route path="/" element={<Home />} />
+            </Routes>
+          </div>
+        </div>
+      ) : (
+        <>
+          <Routes>
+            <Route path="/login" element={<LogIn />} />
+            <Route path="/register" element={<SignUp />} />
+          </Routes>
+        </>
+      )}
+    </div>
+  );
+}
+
 function App() {
   return (
     <>
-      <div className="content">
-        <div className="col-1">
-          <Navbar></Navbar>
-        </div>
-        <div className="col-11">
-          <Router>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/login" element={<LogIn />} />
-              <Route path="/register" element={<SignUp />} />
-            </Routes>
-          </Router>
-        </div>
-      </div>
-
+      <Router>
+        <Layout />
+      </Router>
       <ToastContainer
         position="bottom-center"
         autoClose={3000}

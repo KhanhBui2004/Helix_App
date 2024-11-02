@@ -26,7 +26,7 @@ const Navbar = () => {
             </li>
           </ul>
         </div>
-        <div className="setting">
+        <div className="setting mb-3">
           <i class="fa-solid fa-bars icon fa-2x"></i>
         </div>
       </nav>
