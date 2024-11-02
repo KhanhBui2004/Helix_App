@@ -5,23 +5,18 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { registerNewUser } from "../../services/userService";
 import { UserContext } from "../../context/UserContext";
-import logo from "../../logo.svg";
 
 const SignUp = (props) => {
   //   const { user } = useContext(UserContext);
 
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+  const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const defaultValidInput = {
     isFName: true,
-    isLName: true,
     isValidEmail: true,
-    isValidPhone: true,
     isUsername: true,
     isValidPassword: true,
     isValidConfirmPassword: true,
@@ -39,14 +34,9 @@ const SignUp = (props) => {
   const isValidInput = () => {
     setObjCheckInput(defaultValidInput);
 
-    if (!firstName) {
-      toast.error("First name is required");
+    if (!fullName) {
+      toast.error("Full name is required");
       setObjCheckInput({ ...defaultValidInput, isFName: false });
-      return false;
-    }
-    if (!lastName) {
-      toast.error("Last name is required");
-      setObjCheckInput({ ...defaultValidInput, isLName: false });
       return false;
     }
     if (!email) {
@@ -58,11 +48,6 @@ const SignUp = (props) => {
     if (!regx.test(email)) {
       toast.error("Please enter a valid email address");
       setObjCheckInput({ ...defaultValidInput, isValidEmail: false });
-      return false;
-    }
-    if (!phone) {
-      setObjCheckInput({ ...defaultValidInput, isValidPhone: false });
-      toast.error("Phone is required");
       return false;
     }
     if (!username) {
@@ -93,10 +78,8 @@ const SignUp = (props) => {
 
     if (check === true) {
       let serverData = await registerNewUser(
-        firstName,
-        lastName,
+        fullName,
         email,
-        phone,
         username,
         password
       );
@@ -108,8 +91,6 @@ const SignUp = (props) => {
         if (+serverData.EC === 1) {
           setObjCheckInput({ ...defaultValidInput, isValidEmail: false });
         } else if (+serverData.EC === 2) {
-          setObjCheckInput({ ...defaultValidInput, isValidPhone: false });
-        } else if (+serverData.EC === 3) {
           setObjCheckInput({ ...defaultValidInput, isUsername: false });
         }
       }
@@ -120,7 +101,7 @@ const SignUp = (props) => {
     <>
       <div class="wrapper">
         <div class="d-flex align-items-center justify-content-center my-5 my-lg-0">
-          <div class="container">
+          <div class="container-fluid">
             <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-2">
               <div class="col mx-auto">
                 <div class="card">
@@ -129,9 +110,9 @@ const SignUp = (props) => {
                       <Link to="/">
                         <div class="d-flex align-items-center justify-content-center">
                           <img
-                            src={logo}
-                            width="60"
-                            height="60"
+                            src="/img/logo_Helix.png"
+                            width="50"
+                            height="50"
                             className="d-inline-block align-top me-3"
                             alt="Logo"
                           />
@@ -144,9 +125,9 @@ const SignUp = (props) => {
                       </div>
                       <div class="form-body">
                         <form class="row g-3">
-                          <div class="col-sm-6">
-                            <label for="inputFirstName" class="form-label">
-                              First Name
+                          <div class="col-12">
+                            <label for="inputFullName" class="form-label">
+                              Full Name
                             </label>
                             <input
                               type="text"
@@ -155,28 +136,10 @@ const SignUp = (props) => {
                                   ? "form-control"
                                   : "form-control is-invalid"
                               }
-                              id="inputFirstName"
-                              placeholder="Jhon"
+                              id="inputFullName"
+                              placeholder="Jhon Athew"
                               onChange={(event) =>
-                                setFirstName(event.target.value)
-                              }
-                            ></input>
-                          </div>
-                          <div class="col-sm-6">
-                            <label for="inputLastName" class="form-label">
-                              Last Name
-                            </label>
-                            <input
-                              type="text"
-                              className={
-                                objCheckInput.isLName
-                                  ? "form-control"
-                                  : "form-control is-invalid"
-                              }
-                              id="inputLastName"
-                              placeholder="Deo"
-                              onChange={(event) =>
-                                setLastName(event.target.value)
+                                setFullName(event.target.value)
                               }
                             ></input>
                           </div>
@@ -194,22 +157,6 @@ const SignUp = (props) => {
                               placeholder="Email address"
                               value={email}
                               onChange={(event) => setEmail(event.target.value)}
-                            />
-                          </div>
-                          <div class="col-12">
-                            <label for="inputEmailAddress" class="form-label">
-                              Phone Number
-                            </label>
-                            <input
-                              type="number"
-                              className={
-                                objCheckInput.isValidPhone
-                                  ? "form-control"
-                                  : "form-control is-invalid"
-                              }
-                              placeholder="Phone number"
-                              value={phone}
-                              onChange={(event) => setPhone(event.target.value)}
                             />
                           </div>
                           <div class="col-12">
@@ -273,7 +220,7 @@ const SignUp = (props) => {
                           <div class="col-12">
                             <div class="d-grid">
                               <button
-                                className="btn btn-primary"
+                                className="btn btn-success"
                                 type="button"
                                 onClick={() => handleRegister()}
                               >

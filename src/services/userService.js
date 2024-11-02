@@ -1,28 +1,38 @@
 import axios from "../setup/axios";
+import qs from "qs";
 
-const registerNewUser = (
-  firstName,
-  lastName,
-  email,
-  phone,
-  username,
-  password
-) => {
-  return axios.post("/api/v1/register", {
-    firstName,
-    lastName,
-    email,
-    phone,
-    username,
-    password,
-  });
+const registerNewUser = (fullname, email, username, password) => {
+  return axios.post(
+    "/api/auth/register",
+    qs.stringify({
+      fullname,
+      email,
+      username,
+      password,
+    }),
+    {
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+    }
+  );
 };
 
 const loginUser = (valueLogin, password) => {
-  return axios.post("/api/v1/login", {
-    valueLogin,
-    password,
-  });
+  return axios.post(
+    "/api/auth/login",
+    qs.stringify({
+      fullname,
+      email,
+      username,
+      password,
+    }),
+    {
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+    }
+  );
 };
 
 const fetchAllUsers = (page, limit) => {

@@ -1,0 +1,28 @@
+.navbar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100vh;
+}
+.nav-content {
+  display: flex;
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+  }
+  .icon {
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    width: 100px;
+    height: 100px;
+    transition: background-color 0.2s ease;
+  }
+  .icon:hover {
+    background: #d4aeae;
+  }
+}

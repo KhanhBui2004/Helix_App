@@ -5,17 +5,26 @@ import { ToastContainer } from "react-toastify";
 import SignUp from "./components/SignUp/SignUp";
 import LogIn from "./components/LogIn/LogIn";
 import Home from "./components/Home/Home";
+import Navbar from "./components/navbar/navbar";
 
 function App() {
   return (
     <>
-      <Router>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<LogIn />} />
-          <Route path="/signup" element={<SignUp />} />
-        </Routes>
-      </Router>
+      <div className="content">
+        <div className="col-1">
+          <Navbar></Navbar>
+        </div>
+        <div className="col-11">
+          <Router>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/login" element={<LogIn />} />
+              <Route path="/register" element={<SignUp />} />
+            </Routes>
+          </Router>
+        </div>
+      </div>
+
       <ToastContainer
         position="bottom-center"
         autoClose={3000}

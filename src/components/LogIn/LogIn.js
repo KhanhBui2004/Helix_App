@@ -4,7 +4,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { loginUser } from "../../services/userService";
 import { UserContext } from "../../context/UserContext";
-import logo from "../../logo.svg";
+// import logo from "";
 
 const LogIn = (props) => {
   //   const { user, loginContext } = useContext(UserContext);
@@ -94,9 +94,9 @@ const LogIn = (props) => {
                       <Link to="/">
                         <div class="d-flex align-items-center justify-content-center">
                           <img
-                            src={logo}
-                            width="60"
-                            height="60"
+                            src="/img/logo_Helix.png"
+                            width="50"
+                            height="50"
                             className="d-inline-block align-top me-3"
                             alt="Logo"
                           />
@@ -105,7 +105,7 @@ const LogIn = (props) => {
                       </Link>
                       <div className="mb-3 gap-1 d-flex text-center">
                         <p> Don't have an account yet?</p>
-                        <Link to="/signup">Register here</Link>
+                        <Link to="/register">Register here</Link>
                       </div>
                       <div class="form-body">
                         <form class="row g-3">
@@ -120,7 +120,7 @@ const LogIn = (props) => {
                                   ? "form-control"
                                   : "form-control is-invalid"
                               }
-                              placeholder="Email address or phone number"
+                              placeholder="Username"
                               value={valueLogin}
                               onChange={(event) => {
                                 setValueLogin(event.target.value);
@@ -133,7 +133,7 @@ const LogIn = (props) => {
                             </label>
                             <div class="input-group" id="show_hide_password">
                               <input
-                                type="password"
+                                type="Password"
                                 className={
                                   objValidInput.isValidPassword
                                     ? "form-control"
@@ -154,7 +154,7 @@ const LogIn = (props) => {
                           <div class="col-12">
                             <div class="d-grid">
                               <button
-                                className="btn btn-primary"
+                                className="btn btn-success"
                                 onClick={(e) => {
                                   e.preventDefault(); // Ngăn chặn hành vi mặc định của sự kiện
                                   handleLogin();

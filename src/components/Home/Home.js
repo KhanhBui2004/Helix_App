@@ -1,16 +1,46 @@
+import { useState } from "react";
 import "./Home.css";
 const Home = (props) => {
+  const [listView, setListView] = useState(false);
+
   return (
     <>
-      <div className="container mx-auto">
+      <div className="aaaa">
+        For you{" "}
+        <i
+          class="fa-solid fa-angle-down"
+          onClick={() => setListView(!listView)}
+        ></i>
+        <div className={listView ? "list-view" : "hide-list-view"}>
+          <ul>
+            <li>For you</li>
+            <li>Following</li>
+          </ul>
+        </div>
+      </div>
+      <div className="container mx-auto my-auto">
+        <div className="post">
+          <div className="logo">
+            <img
+              src="https://s3-alpha-sig.figma.com/img/ca90/278b/f58ea0a1bf503decb9c4af199a562b47?Expires=1731283200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=M8YW7tpvAYv4b1SWHqFUQO4iei-EU0dFSsc72UFu5zktFM1B19NwfkZ3WEPtXV1KGs~2x20pfggu5BbQWQy~2D0GPjnDJoZWN3Vs-xQrE7TJojCj0UUHIG~9Ho0GD3m2Sl6yK2rJ56LPIrwOouuE3zYRJ4h-6GQxJG~26Kp2-ZB~z1gWjl6mH7L4DvPSWbObdvfpJH57LLxdWe1SocCExrkka-AXKtZ-QjgyTyB9NVzQkaSFg8l8wn1I5~LWWXEZHNqEA0wCFxNCAHhsk88qpVSa1w45sAYi85b3P3Eev77SMLymkPSY7eGC~NQGC-eS~KOehAqnHeP-IqA6Uh80eA__"
+              alt="logo"
+              width="40"
+              height="40"
+            ></img>
+            <a>What's new?</a>
+          </div>
+          <button type="button" class="btn btn-outline-secondary">
+            Post
+          </button>
+        </div>
         <div className="content">
           <div className="content-right">
             <div className="logo">
               <img
                 src="https://s3-alpha-sig.figma.com/img/ca90/278b/f58ea0a1bf503decb9c4af199a562b47?Expires=1731283200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=M8YW7tpvAYv4b1SWHqFUQO4iei-EU0dFSsc72UFu5zktFM1B19NwfkZ3WEPtXV1KGs~2x20pfggu5BbQWQy~2D0GPjnDJoZWN3Vs-xQrE7TJojCj0UUHIG~9Ho0GD3m2Sl6yK2rJ56LPIrwOouuE3zYRJ4h-6GQxJG~26Kp2-ZB~z1gWjl6mH7L4DvPSWbObdvfpJH57LLxdWe1SocCExrkka-AXKtZ-QjgyTyB9NVzQkaSFg8l8wn1I5~LWWXEZHNqEA0wCFxNCAHhsk88qpVSa1w45sAYi85b3P3Eev77SMLymkPSY7eGC~NQGC-eS~KOehAqnHeP-IqA6Uh80eA__"
                 alt="logo"
-                width="36"
-                height="36"
+                width="40"
+                height="40"
               ></img>
               <div className="follow">
                 <i class="fa-solid fa-circle-plus"></i>

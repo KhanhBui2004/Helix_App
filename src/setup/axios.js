@@ -4,7 +4,7 @@ import { interceptorLoadingElements } from "../utils/formater";
 
 // Set config defaults when creating the instance
 const instance = axios.create({
-  baseURL: "http://localhost:3001",
+  baseURL: "http://localhost:5000",
 });
 
 instance.defaults.withCredentials = true;
@@ -44,7 +44,7 @@ instance.interceptors.response.use(
         if (
           window.location.pathname !== "/" &&
           window.location.pathname !== "/login" &&
-          window.location.pathname !== "/signup"
+          window.location.pathname !== "/register"
         ) {
           toast.error("Unauthorized the user. Please login...");
         }
