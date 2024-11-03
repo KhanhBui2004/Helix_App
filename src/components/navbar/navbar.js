@@ -16,7 +16,7 @@ const Navbar = () => {
               </Link>
             </li>
             <li className="icon">
-              <Link to="/">
+              <Link to="/search">
                 <i class="fa-solid fa-magnifying-glass fa-2x"></i>
               </Link>
             </li>

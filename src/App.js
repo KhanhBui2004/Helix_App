@@ -12,6 +12,7 @@ import LogIn from "./components/LogIn/LogIn";
 import Home from "./components/Home/Home";
 import Navbar from "./components/navbar/navbar";
 import Profile from "./components/Profile/Profile";
+import Search from "./components/Search/Search";
 
 function Layout() {
   const currentLocation = useLocation();
@@ -31,6 +32,7 @@ function Layout() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/profile" element={<Profile />} />
+              <Route path="/search" element={<Search />} />
             </Routes>
           </div>
         </div>
