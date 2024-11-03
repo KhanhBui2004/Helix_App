@@ -11,6 +11,7 @@ import SignUp from "./components/SignUp/SignUp";
 import LogIn from "./components/LogIn/LogIn";
 import Home from "./components/Home/Home";
 import Navbar from "./components/navbar/navbar";
+import Profile from "./components/Profile/Profile";
 
 function Layout() {
   const currentLocation = useLocation();
@@ -29,6 +30,7 @@ function Layout() {
           <div className="col-11">
             <Routes>
               <Route path="/" element={<Home />} />
+              <Route path="/profile" element={<Profile />} />
             </Routes>
           </div>
         </div>

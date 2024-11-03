@@ -1,4 +1,5 @@
 import "./navbar.css";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
@@ -10,19 +11,29 @@ const Navbar = () => {
         <div className="nav-content">
           <ul className="gap-1">
             <li className="icon">
-              <i class="fa-solid fa-house fa-2x"></i>
+              <Link to="/">
+                <i class="fa-solid fa-house fa-2x"></i>
+              </Link>
             </li>
             <li className="icon">
-              <i class="fa-solid fa-magnifying-glass fa-2x"></i>
+              <Link to="/">
+                <i class="fa-solid fa-magnifying-glass fa-2x"></i>
+              </Link>
             </li>
             <li className="icon">
-              <i class="fa-solid fa-pen-to-square fa-2x"></i>
+              <Link to="/">
+                <i class="fa-solid fa-pen-to-square fa-2x"></i>
+              </Link>
             </li>
             <li className="icon">
-              <i class="fa-solid fa-heart fa-2x"></i>
+              <Link to="/">
+                <i class="fa-solid fa-heart fa-2x"></i>
+              </Link>
             </li>
             <li className="icon">
-              <i class="fa-solid fa-user fa-2x"></i>
+              <Link to="/profile">
+                <i class="fa-solid fa-user fa-2x"></i>
+              </Link>
             </li>
           </ul>
         </div>
