@@ -19,37 +19,42 @@ const UserProvider = ({ children }) => {
     setUser({ ...userData, isLoading: false });
   };
 
+  useEffect(() => {
+    console.log("Updated user:", user);
+  }, [user]); // useEffect sẽ chạy khi `user` thay đổi
+
   // Logout updates the user data to default
   const logoutContext = () => {
     setUser({ ...userDefault, isLoading: false });
   };
 
-  const fetchUSer = async () => {
-    let response = await getUserAccount();
-    if (response && response.EC === 0) {
-      let groupWithRoles = response.DT.groupWithRoles;
-      let email = response.DT.email;
-      let username = response.DT.username;
-      let token = response.DT.access_token;
+  const fetchUser = async () => {
+    try {
+      let response = await getUserAccount(user);
+      if (response && +response.status === 200) {
+        let role = response.role;
+        let token = response.access_token;
 
-      let data = {
-        isAuthenticated: true,
-        token,
-        account: {
-          groupWithRoles,
-          email,
-          username,
-        },
-        isLoading: false,
-      };
-      setUser(data);
-    } else {
+        let data = {
+          isLoading: false,
+          isAuthenticated: true,
+          token,
+          account: {
+            role,
+          },
+        };
+        setUser(data);
+      } else {
+        console.log("vào đây rồi");
+        setUser({ ...userDefault, isLoading: false });
+      }
+    } catch (error) {
       setUser({ ...userDefault, isLoading: false });
     }
   };
 
   useEffect(() => {
-    fetchUSer();
+    fetchUser();
   }, []);
 
   return (

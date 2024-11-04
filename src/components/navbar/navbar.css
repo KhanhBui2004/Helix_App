@@ -26,3 +26,55 @@
     background: rgb(151, 213, 151);
   }
 }
+
+.setting {
+  position: relative;
+  width: 100%;
+  background: transparent;
+  text-align: center;
+  padding: 10px 12px;
+  font-weight: 600;
+  font-size: 18px;
+  .fa-angle-down {
+    margin-left: 10px;
+    width: 25px;
+    height: 25px;
+    padding: 1px;
+    border: solid;
+    border-radius: 50%;
+  }
+
+  .fa-angle-down:hover {
+    width: 27px;
+    height: 27px;
+    padding: 2px;
+  }
+  .hide-list-view {
+    display: none;
+  }
+  .list-view {
+    width: 150px;
+    position: absolute;
+    display: inline;
+    background: #fff;
+    border-radius: 20px;
+    border: 1px solid #000;
+    padding: 20px 10px;
+    text-align: left;
+    top: -100px;
+    left: 70%;
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    li {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    li:hover {
+      cursor: pointer;
+    }
+  }
+}

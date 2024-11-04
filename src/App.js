@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -13,6 +13,8 @@ import Home from "./components/Home/Home";
 import Navbar from "./components/navbar/navbar";
 import Profile from "./components/Profile/Profile";
 import Search from "./components/Search/Search";
+import { Rings } from "react-loader-spinner";
+import { UserContext } from "./context/UserContext";
 
 function Layout() {
   const currentLocation = useLocation();
@@ -49,10 +51,23 @@ function Layout() {
 }
 
 function App() {
+  const { user } = useContext(UserContext);
   return (
     <>
       <Router>
-        <Layout />
+        {user && user.isLoading ? (
+          <div className="loading-container">
+            <Rings
+              height="100"
+              width="100"
+              color="#1877f2"
+              ariaLabel="loading"
+            />
+            <div>Loading data...</div>
+          </div>
+        ) : (
+          <Layout />
+        )}
       </Router>
       <ToastContainer
         position="bottom-center"

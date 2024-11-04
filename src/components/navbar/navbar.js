@@ -1,7 +1,28 @@
 import "./navbar.css";
-import { Link } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { logoutUser } from "../../services/userService";
+import { UserContext } from "../../context/UserContext";
 
 const Navbar = () => {
+  const { user, logoutContext } = useContext(UserContext);
+  const [listView, setListView] = useState(false);
+  let navigate = useNavigate();
+
+  const logout = async () => {
+    localStorage.removeItem("jwt"); // clear local storage
+    logoutContext(); // clear user in context
+    toast.success("Logout succeeds...");
+    navigate("/login");
+  };
+
+  useEffect(() => {
+    if (user && !user.isAuthenticated) {
+      navigate("/login");
+    }
+  }, []);
+
   return (
     <>
       <nav class="navbar bg-transparent border-body " data-bs-theme="dark">
@@ -38,7 +59,19 @@ const Navbar = () => {
           </ul>
         </div>
         <div className="setting mb-3">
-          <i class="fa-solid fa-bars icon fa-2x"></i>
+          <i
+            class="fa-solid fa-bars icon fa-2x"
+            onClick={() => setListView(!listView)}
+          ></i>
+          <div className={listView ? "list-view" : "hide-list-view"}>
+            <ul>
+              <li>For you</li>
+              <li onClick={() => logout()}>
+                <p>Log out</p>
+                <i class="fa-solid fa-right-from-bracket"></i>
+              </li>
+            </ul>
+          </div>
         </div>
       </nav>
     </>

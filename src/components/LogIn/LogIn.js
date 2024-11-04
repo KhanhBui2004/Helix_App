@@ -4,10 +4,9 @@ import { useNavigate, Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { loginUser } from "../../services/userService";
 import { UserContext } from "../../context/UserContext";
-// import logo from "";
 
 const LogIn = (props) => {
-  //   const { user, loginContext } = useContext(UserContext);
+  const { user, loginContext } = useContext(UserContext);
 
   let navigate = useNavigate();
 
@@ -37,35 +36,30 @@ const LogIn = (props) => {
 
     let response = await loginUser(valueLogin, password);
 
-    if (response && +response.EC === 0) {
-      // Success
-      let groupWithRoles = response.DT.groupWithRoles;
-      let email = response.DT.email;
-      let username = response.DT.username;
-      let token = response.DT.access_token;
-
+    if (response && +response.status === 200) {
+      let token = response.access_token;
+      let role = +response.role;
       let data = {
         isAuthenticated: true,
         token,
         account: {
-          groupWithRoles,
-          email,
-          username,
+          role,
         },
       };
 
       localStorage.setItem("jwt", token);
-      //   loginContext(data);
-      if (groupWithRoles.name === "Admin") {
+      loginContext(data);
+
+      if (role === 1) {
         navigate("/admin");
       } else {
         navigate("/");
       }
     }
 
-    if (response && +response.EC !== 0) {
+    if (response && +response.status !== 200) {
       // ERROR
-      toast.error(response.EM);
+      toast.error(response.message);
     }
   };
 
@@ -75,11 +69,11 @@ const LogIn = (props) => {
     }
   };
 
-  //   useEffect(() => {
-  //     if (user && user.isAuthenticated) {
-  //       navigate("/");
-  //     }
-  //   }, []);
+  useEffect(() => {
+    if (user && user.isAuthenticated) {
+      navigate("/");
+    }
+  }, []);
 
   return (
     <>

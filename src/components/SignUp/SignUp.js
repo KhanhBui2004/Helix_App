@@ -7,7 +7,7 @@ import { registerNewUser } from "../../services/userService";
 import { UserContext } from "../../context/UserContext";
 
 const SignUp = (props) => {
-  //   const { user } = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
@@ -25,11 +25,11 @@ const SignUp = (props) => {
 
   let navigate = useNavigate();
 
-  //   useEffect(() => {
-  //     if (user && user.isAuthenticated) {
-  //       navigate("/");
-  //     }
-  //   }, []);
+  useEffect(() => {
+    if (user && user.isAuthenticated) {
+      navigate("/");
+    }
+  }, []);
 
   const isValidInput = () => {
     setObjCheckInput(defaultValidInput);
@@ -83,16 +83,11 @@ const SignUp = (props) => {
         username,
         password
       );
-      if (+serverData.EC === 0) {
-        toast.success(serverData.EM);
+      if (+serverData.status === 201) {
+        toast.success(serverData.message);
         navigate("/login");
       } else {
-        toast.error(serverData.EM);
-        if (+serverData.EC === 1) {
-          setObjCheckInput({ ...defaultValidInput, isValidEmail: false });
-        } else if (+serverData.EC === 2) {
-          setObjCheckInput({ ...defaultValidInput, isUsername: false });
-        }
+        toast.error(serverData.message);
       }
     }
   };
