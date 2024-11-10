@@ -8,7 +8,16 @@ import { UserContext } from "../../context/UserContext";
 const Navbar = () => {
   const { user, logoutContext } = useContext(UserContext);
   const [listView, setListView] = useState(false);
+  const [darkMode, setDarkMode] = useState(false);
   let navigate = useNavigate();
+
+  const changeMode = () => {
+    if (darkMode) {
+      document.documentElement.setAttribute("data-bs-theme", "dark");
+    } else {
+      document.documentElement.setAttribute("data-bs-theme", "light");
+    }
+  };
 
   const logout = async () => {
     localStorage.removeItem("jwt"); // clear local storage
@@ -22,6 +31,10 @@ const Navbar = () => {
       navigate("/login");
     }
   }, []);
+
+  useEffect(() => {
+    changeMode();
+  }, [darkMode]);
 
   return (
     <>
@@ -65,7 +78,27 @@ const Navbar = () => {
           ></i>
           <div className={listView ? "list-view" : "hide-list-view"}>
             <ul>
-              <li>For you</li>
+              <li>
+                <p>Mode</p>
+                <div className="icon-mode">
+                  <i
+                    class={
+                      !darkMode
+                        ? "fa-regular fa-sun fa-lg selected-mode"
+                        : "fa-regular fa-sun fa-lg"
+                    }
+                    onClick={() => setDarkMode(false)}
+                  ></i>
+                  <i
+                    class={
+                      darkMode
+                        ? "fa-regular fa-moon fa-lg selected-mode"
+                        : "fa-regular fa-moon fa-lg"
+                    }
+                    onClick={() => setDarkMode(true)}
+                  ></i>
+                </div>
+              </li>
               <li onClick={() => logout()}>
                 <p>Log out</p>
                 <i class="fa-solid fa-right-from-bracket"></i>

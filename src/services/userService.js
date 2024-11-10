@@ -50,14 +50,20 @@ const logoutUser = () => {
   return axios.post("/api/user/logout");
 };
 
+const getPosts = () => {
+  return axios.get("/api/post/");
+};
+
+const getUserPosts = (id) => {
+  return axios.get(`/api/post/user/${id}`);
+};
+
+const updateUser = (form) => {
+  return axios.put("/api/user/profile", form);
+};
+
 // const getUserByEmail = (email) => {
 //   return axios.get(`/api/v1/user/read-info-user?email=${email}`);
-// };
-
-// const updateUser = (userData) => {
-//   return axios.put("/api/v1/user/update-info-user", {
-//     ...userData,
-//   });
 // };
 
 // const ChangePassword = (data) => {
@@ -71,12 +77,14 @@ export {
   loginUser,
   getUserAccount,
   logoutUser,
+  getPosts,
+  getUserPosts,
+  updateUser,
   // fetchAllUsers,
   // deleteUser,
   // fetchGroup,
   // createNewUser,
   // updateCurrentUser,
   // getUserByEmail,
-  // updateUser,
   // ChangePassword,
 };

@@ -55,6 +55,8 @@ const LogIn = (props) => {
       } else {
         navigate("/");
       }
+
+      window.location.reload();
     }
 
     if (response && +response.status !== 200) {
@@ -73,7 +75,7 @@ const LogIn = (props) => {
     if (user && user.isAuthenticated) {
       navigate("/");
     }
-  }, []);
+  }, [user]);
 
   return (
     <>

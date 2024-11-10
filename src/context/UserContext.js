@@ -19,10 +19,6 @@ const UserProvider = ({ children }) => {
     setUser({ ...userData, isLoading: false });
   };
 
-  useEffect(() => {
-    console.log("Updated user:", user);
-  }, [user]); // useEffect sẽ chạy khi `user` thay đổi
-
   // Logout updates the user data to default
   const logoutContext = () => {
     setUser({ ...userDefault, isLoading: false });
@@ -30,17 +26,22 @@ const UserProvider = ({ children }) => {
 
   const fetchUser = async () => {
     try {
-      let response = await getUserAccount(user);
+      let response = await getUserAccount();
       if (response && +response.status === 200) {
-        let role = response.role;
-        let token = response.access_token;
+        console.log("response: ", response);
 
         let data = {
           isLoading: false,
           isAuthenticated: true,
-          token,
           account: {
-            role,
+            role: response.is_admin,
+            username: response.username,
+            email: response.email,
+            full_name: response.full_name,
+            about_me: response.about_me,
+            avatar_url: response.avatar_url,
+            address: response.address,
+            created_at: response.created_at,
           },
         };
         setUser(data);
@@ -56,6 +57,10 @@ const UserProvider = ({ children }) => {
   useEffect(() => {
     fetchUser();
   }, []);
+
+  useEffect(() => {
+    console.log("Updated user:", user);
+  }, [user]); // useEffect sẽ chạy khi `user` thay đổi
 
   return (
     <UserContext.Provider value={{ user, loginContext, logoutContext }}>
