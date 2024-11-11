@@ -62,8 +62,12 @@ const updateUser = (form) => {
   return axios.put("/api/user/profile", form);
 };
 
+const getUserByUsername = (username) => {
+  return axios.get(`/api/user/search?username=${username}`);
+};
+
 // const getUserByEmail = (email) => {
-//   return axios.get(`/api/v1/user/read-info-user?email=${email}`);
+  // return axios.get(`/api/v1/user/read-info-user?email=${email}`);
 // };
 
 // const ChangePassword = (data) => {
@@ -80,6 +84,7 @@ export {
   getPosts,
   getUserPosts,
   updateUser,
+  getUserByUsername,
   // fetchAllUsers,
   // deleteUser,
   // fetchGroup,

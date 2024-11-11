@@ -1,7 +1,9 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import "./Home.css";
 import { getPosts } from "../../services/userService";
+import { UserContext } from "../../context/UserContext";
 const Home = (props) => {
+  const { user } = useContext(UserContext);
   const [listView, setListView] = useState(false);
   const [Post, setPost] = useState([]);
   const [dateTime, setDateTime] = useState(new Date());
@@ -25,7 +27,7 @@ const Home = (props) => {
     let sencond = Math.floor(differenceInMilliseconds / 1000);
     let minute = Math.floor(differenceInMilliseconds / (1000 * 60));
     let hour = Math.floor(differenceInMilliseconds / (1000 * 60 * 60));
-    let day = Math.floor(differenceInMilliseconds / (1000 * 60 * 24));
+    let day = Math.floor(differenceInMilliseconds / (1000 * 60 * 60 * 24));
     if (sencond < 60) return sencond + "s";
     if (minute < 60) return minute + "m";
     if (hour < 24) return hour + "h";
@@ -55,7 +57,7 @@ const Home = (props) => {
         <div className="post">
           <div className="logo">
             <img
-              src="https://s3-alpha-sig.figma.com/img/ca90/278b/f58ea0a1bf503decb9c4af199a562b47?Expires=1731283200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=M8YW7tpvAYv4b1SWHqFUQO4iei-EU0dFSsc72UFu5zktFM1B19NwfkZ3WEPtXV1KGs~2x20pfggu5BbQWQy~2D0GPjnDJoZWN3Vs-xQrE7TJojCj0UUHIG~9Ho0GD3m2Sl6yK2rJ56LPIrwOouuE3zYRJ4h-6GQxJG~26Kp2-ZB~z1gWjl6mH7L4DvPSWbObdvfpJH57LLxdWe1SocCExrkka-AXKtZ-QjgyTyB9NVzQkaSFg8l8wn1I5~LWWXEZHNqEA0wCFxNCAHhsk88qpVSa1w45sAYi85b3P3Eev77SMLymkPSY7eGC~NQGC-eS~KOehAqnHeP-IqA6Uh80eA__"
+              src={"http://localhost:5000" + user.account.avatar_url}
               alt="logo"
               width="40"
               height="40"
@@ -76,7 +78,7 @@ const Home = (props) => {
                     <div className="content-right">
                       <div className="logo">
                         <img
-                          src="https://s3-alpha-sig.figma.com/img/ca90/278b/f58ea0a1bf503decb9c4af199a562b47?Expires=1731283200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=M8YW7tpvAYv4b1SWHqFUQO4iei-EU0dFSsc72UFu5zktFM1B19NwfkZ3WEPtXV1KGs~2x20pfggu5BbQWQy~2D0GPjnDJoZWN3Vs-xQrE7TJojCj0UUHIG~9Ho0GD3m2Sl6yK2rJ56LPIrwOouuE3zYRJ4h-6GQxJG~26Kp2-ZB~z1gWjl6mH7L4DvPSWbObdvfpJH57LLxdWe1SocCExrkka-AXKtZ-QjgyTyB9NVzQkaSFg8l8wn1I5~LWWXEZHNqEA0wCFxNCAHhsk88qpVSa1w45sAYi85b3P3Eev77SMLymkPSY7eGC~NQGC-eS~KOehAqnHeP-IqA6Uh80eA__"
+                          src={"http://localhost:5000" + item.avatar}
                           alt="logo"
                           width="40"
                           height="40"

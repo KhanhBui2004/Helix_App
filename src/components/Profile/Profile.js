@@ -45,6 +45,8 @@ const Profile = () => {
   useEffect(() => {
     setCurrentUser(user.account);
     fetchUserPosts(7);
+
+    // print(currentUser);
   }, [user]);
 
   return (
@@ -61,7 +63,9 @@ const Profile = () => {
                   <p className="follower">203 followers</p>
                 </div>
                 <div className="avt">
-                  <img src={currentUser.avatar_url}></img>
+                  <img
+                    src={"http://localhost:5000" + currentUser.avatar_url}
+                  ></img>
                 </div>
               </div>
               <div className="btn-profile">
@@ -110,7 +114,9 @@ const Profile = () => {
                       <div className="content-right">
                         <div className="logo">
                           <img
-                            src="https://s3-alpha-sig.figma.com/img/3f15/d45c/91f82e58c67b01ea096be1b0d8ea7095?Expires=1731283200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=msJ0gc7W71Rps7Fn0sf7ZuydzAIohRSqyWs9MTiVJP30ajjCO~Wj8Pr9ZUYrNGWDW8dzYpgUjjbiippZHsQHH13y4jxRpm~hMXgXeTg45wuHy5RS48wliaI9kMV2r~6PuV4SaFTsv4MNhuLhI3ry-QJ066m7Ef3kUkszZraFUpH629TG946sHzHQ2qmIpNxIQnaUEPNxu8cKHLk6fwiEmqGYka8M-Y2g070I0WrBdtT4uTLF3emW4MbwgcukOcjADb8GZs4FPWMMZr0GuMkaDi-T56m1JcZvCeJijBSQvJq3Qj6xLlTqg1YdGXlVJxv2LN9paGCrSJQRvg74K4U3lQ__"
+                            src={
+                              "http://localhost:5000" + currentUser.avatar_url
+                            }
                             alt="logo"
                             width="40"
                             height="40"

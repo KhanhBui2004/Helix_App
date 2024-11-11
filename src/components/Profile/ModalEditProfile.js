@@ -141,7 +141,7 @@ const ModalEditProfile = (props) => {
                   </label>
                   <input
                     id="avatar"
-                    name="media_url"
+                    name="files"
                     type="file"
                     class="form-control"
                     // value={info.avatar_url}

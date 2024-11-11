@@ -67,7 +67,7 @@ instance.interceptors.response.use(
 
       // not found
       case 404: {
-        return Promise.reject(error);
+        return null;
       }
 
       // conflict
