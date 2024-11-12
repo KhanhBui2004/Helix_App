@@ -20,6 +20,18 @@ const postContent = (dataPost) => {
   return axios.post("/api/post/", dataPost);
 };
 
+const likePost = (post_id) => {
+  return axios.post(`/api/like/${post_id}`);
+};
+
+const unLikePost = (post_id) => {
+  return axios.delete(`/api/like/${post_id}`);
+};
+
+const getLiked = (post_id) => {
+  return axios.get(`/api/like/${post_id}`);
+};
+
 // const fetchAllUsers = (page, limit) => {
 //   return axios.get(`/api/v1/user/read?page=${page}&limit=${limit}`);
 // };
@@ -89,6 +101,9 @@ export {
   getUserByUsername,
   deleteUser,
   postContent,
+  likePost,
+  getLiked,
+  unLikePost,
   // fetchAllUsers,
   // fetchGroup,
   // createNewUser,

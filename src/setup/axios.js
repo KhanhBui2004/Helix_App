@@ -62,7 +62,8 @@ instance.interceptors.response.use(
 
       // bad request
       case 400: {
-        return Promise.reject(error);
+        // return Promise.reject(error);
+        return null;
       }
 
       // not found

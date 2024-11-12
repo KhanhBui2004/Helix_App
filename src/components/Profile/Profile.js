@@ -1,6 +1,11 @@
 import { useContext, useEffect, useState } from "react";
 import "./Profile.css";
-import { getUserPosts } from "../../services/userService";
+import {
+  getUserPosts,
+  likePost,
+  getLiked,
+  unLikePost,
+} from "../../services/userService";
 import { UserContext } from "../../context/UserContext";
 import ModalEditProfile from "./ModalEditProfile";
 
@@ -9,8 +14,34 @@ const Profile = () => {
   const [currentUser, setCurrentUser] = useState({});
   const [userPosts, setUserPosts] = useState([]);
   const [dateTime, setDateTime] = useState(new Date());
+  const [liked, setLiked] = useState([]);
 
   const [isShowModalEditProfile, setIsShowModalEditProfile] = useState(false);
+
+  const handleLike = async (post_id) => {
+    if (liked.includes(post_id)) {
+      let response = await unLikePost(post_id);
+    } else {
+      let response = await likePost(post_id);
+    }
+    await fetchLike();
+  };
+
+  const fetchLike = async () => {
+    let data = [];
+    for (let element of userPosts) {
+      let response = await getLiked(element.id); // Chờ từng response trước khi tiếp tục
+      if (response && +response.status === 200) {
+        data.push(element.id);
+      }
+    }
+
+    setLiked(data);
+  };
+
+  useEffect(() => {
+    fetchLike();
+  }, [userPosts]);
 
   const onHideModalEditProfile = () => {
     setIsShowModalEditProfile(false);
@@ -149,7 +180,14 @@ const Profile = () => {
                           <></>
                         )}
                         <div className="icon">
-                          <i class="fa-regular fa-heart fa-lg"></i>
+                          <i
+                            className={
+                              liked.includes(item.id)
+                                ? "fa-solid fa-heart fa-lg liked"
+                                : "fa-regular fa-heart fa-lg"
+                            }
+                            onClick={() => handleLike(item.id)}
+                          ></i>
                           <i class="fa-regular fa-comment fa-lg"></i>
                           <i class="fa-solid fa-retweet fa-lg"></i>
                           <i class="fa-regular fa-share-from-square fa-lg"></i>

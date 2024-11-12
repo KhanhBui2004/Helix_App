@@ -138,7 +138,15 @@ body {
       i {
         margin-right: 15px;
       }
+      i:hover {
+        cursor: pointer;
+      }
     }
+
+    .liked {
+      color: red;
+    }
+    
     .replies {
       font-size: 13px;
       color: #989898;

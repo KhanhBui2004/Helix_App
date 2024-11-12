@@ -1,13 +1,29 @@
 import { useContext, useEffect, useState } from "react";
 import "./Home.css";
-import { getPosts } from "../../services/userService";
+import {
+  getPosts,
+  likePost,
+  getLiked,
+  unLikePost,
+} from "../../services/userService";
 import { UserContext } from "../../context/UserContext";
+import { Link } from "react-router-dom";
 
 const Home = (props) => {
   const { user } = useContext(UserContext);
   const [listView, setListView] = useState(false);
   const [Post, setPost] = useState([]);
+  const [liked, setLiked] = useState([]);
   const [dateTime, setDateTime] = useState(new Date());
+
+  const handleLike = async (post_id) => {
+    if (liked.includes(post_id)) {
+      let response = await unLikePost(post_id);
+    } else {
+      let response = await likePost(post_id);
+    }
+    await fetchLike();
+  };
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -22,9 +38,28 @@ const Home = (props) => {
     setPost(data.posts);
   };
 
+  const fetchLike = async () => {
+    let data = [];
+    for (let element of Post) {
+      let response = await getLiked(element.id); // Chờ từng response trước khi tiếp tục
+      if (response && +response.status === 200) {
+        data.push(element.id);
+      }
+    }
+
+    setLiked(data);
+  };
+
+  useEffect(() => {
+    fetchLike();
+  }, [Post]);
+
+  useEffect(() => {
+    console.log("liked: " + liked);
+  }, [liked]);
+
   const getTimePost = (postDate) => {
     let date2 = new Date(postDate + " GMT+0700");
-    console.log("date: " + date2);
 
     const differenceInMilliseconds = dateTime - date2;
     let sencond = Math.floor(differenceInMilliseconds / 1000);
@@ -67,9 +102,11 @@ const Home = (props) => {
             ></img>
             <a>What's new?</a>
           </div>
-          <button type="button" class="btn btn-outline-secondary">
-            Post
-          </button>
+          <Link to={"/new-thread"}>
+            <button type="button" class="btn btn-outline-secondary">
+              Post
+            </button>
+          </Link>
         </div>
 
         {Post && Post.length > 0 ? (
@@ -116,7 +153,14 @@ const Home = (props) => {
                         <></>
                       )}
                       <div className="icon">
-                        <i class="fa-regular fa-heart fa-lg"></i>
+                        <i
+                          className={
+                            liked.includes(item.id)
+                              ? "fa-solid fa-heart fa-lg liked"
+                              : "fa-regular fa-heart fa-lg"
+                          }
+                          onClick={() => handleLike(item.id)}
+                        ></i>
                         <i class="fa-regular fa-comment fa-lg"></i>
                         <i class="fa-solid fa-retweet fa-lg"></i>
                         <i class="fa-regular fa-share-from-square fa-lg"></i>
