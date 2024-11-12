@@ -6,7 +6,9 @@ from app.services.user_service import (
     update_user_profile,
     delete_user,
     search_user,
-    get_user_by_username
+    get_user_by_username,
+    get_all_users,
+    delete_user_for_admin
 )
 from werkzeug.utils import secure_filename
 import os
@@ -82,10 +84,8 @@ def delete():
 @user_bp.route('/delete/<int:user_id>', methods=['DELETE'])
 @jwt_required()
 def delete_user_by_admin(user_id):
-    user_id = get_jwt_identity()
-    if user_id != 1:
-        return jsonify({'message': 'Permission denied', 'status': 403}), 403
-    result = delete_user(user_id)
+    user_id_admin = get_jwt_identity()
+    result = delete_user_for_admin(user_id, user_id_admin)
     return jsonify(result), result.get('status', 400)
 
 # Search user by username
@@ -94,6 +94,9 @@ def delete_user_by_admin(user_id):
 @user_bp.route('/search', methods=['GET'])
 def search():
     username = request.args.get('username')  # Get username from query string
+    if not username:
+        result = get_all_users()
+        return jsonify(result), result.get('status', 400)
     result = search_user(username)
     return jsonify(result), result.get('status', 400)
 

@@ -75,3 +75,26 @@ def get_user_by_username(username):
         'user': user.to_dict(),
         'status': 200
     }
+
+def get_all_users():
+    users = User.query.all()
+    if not users:
+        return {'message': 'No user found', 'status': 404}
+    
+    return {
+        'users': [user.to_dict() for user in users],
+        'status': 200
+    }
+
+def delete_user_for_admin(user_id, admin_id):
+    admin = User.query.get(admin_id)
+    if not admin.is_admin:
+        return {'message': 'Unauthorized', 'status': 401}
+    
+    user = User.query.get(user_id)
+    if not user:
+        return {'message': 'User not found', 'status': 404}
+    db.session.delete(user)
+    db.session.commit()
+
+    return {'message': 'User deleted successfully', 'status': 200}
