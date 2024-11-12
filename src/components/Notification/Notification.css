@@ -55,7 +55,7 @@ body {
   line-height: 16.94px;
 }
 
-.info {
+.info1 {
   display: flex;
   flex-direction: column;
   align-items: start;
@@ -67,12 +67,12 @@ body {
   width: 30%;
 }
 
-.btn {
+.btn-outline-dark {
   width: 100%;
   height: 50px;
   border-radius: 15px;
 }
 
-.btn:hover {
+.btn-outline-dark:hover {
   background-color: #00bf63 !important;
 }

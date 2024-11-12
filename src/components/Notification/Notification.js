@@ -22,7 +22,7 @@ const Notification = () => {
             />
           </div>
           <div className="info-user">
-            <div className="info">
+            <div className="info1">
               <p className="username">User</p>
               <p className="followers">22k followers</p>
             </div>

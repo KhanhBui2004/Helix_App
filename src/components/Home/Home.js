@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import "./Home.css";
 import { getPosts } from "../../services/userService";
 import { UserContext } from "../../context/UserContext";
+
 const Home = (props) => {
   const { user } = useContext(UserContext);
   const [listView, setListView] = useState(false);
@@ -22,7 +23,9 @@ const Home = (props) => {
   };
 
   const getTimePost = (postDate) => {
-    let date2 = new Date(postDate + "+0700");
+    let date2 = new Date(postDate + " GMT+0700");
+    console.log("date: " + date2);
+
     const differenceInMilliseconds = dateTime - date2;
     let sencond = Math.floor(differenceInMilliseconds / 1000);
     let minute = Math.floor(differenceInMilliseconds / (1000 * 60));

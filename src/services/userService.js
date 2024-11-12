@@ -16,12 +16,8 @@ const loginUser = (username, password) => {
   });
 };
 
-const postContent = (user_id, content, media_url) => {
-  return axios.post("/api/post/", {
-    user_id,
-    content,
-    media_url,
-  });
+const postContent = (dataPost) => {
+  return axios.post("/api/post/", dataPost);
 };
 
 // const fetchAllUsers = (page, limit) => {

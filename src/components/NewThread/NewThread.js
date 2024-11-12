@@ -37,18 +37,26 @@ const NewThread = () => {
   const fileInputRef = useRef(null);
 
   const handlePost = async () => {
-    // Thêm logic đăng bài tại đây
-    let check = invalidInput();
+    let check = invalidInput(); // Kiểm tra input hợp lệ
 
     if (check === true) {
-      let serverData = await postContent(user.account.role, Content, imageSrc);
-      if (+serverData.status === 201) {
-        toast.success(serverData.message);
-        setContent(""); // Xóa nội dung sau khi đăng
-        setImageSrc("");
-        navigate(-1);
-      } else {
-        toast.error(serverData.message);
+      const formData = new FormData(document.getElementById("postForm"));
+      for (let pair of formData.entries()) {
+        console.log(pair[0], pair[1]);
+      }
+
+      try {
+        let serverData = await postContent(formData); // Gửi dữ liệu tới server
+        if (serverData && +serverData.status === 201) {
+          toast.success(serverData.message);
+          setContent(""); // Reset nội dung sau khi đăng
+          setImageSrc("");
+          navigate(-1);
+        } else {
+          toast.error(serverData.message);
+        }
+      } catch (error) {
+        console.error("Error posting content", error);
       }
     }
   };
@@ -95,34 +103,41 @@ const NewThread = () => {
       </Modal.Header>
       <Modal.Body>
         <div className="Thread-input">
-          <img src={user.account.avatar_url} alt="avatar" />
-          <div className="right-part">
-            <p className="username">{user.account.full_name}</p>
-            <textarea
-              className="post"
-              placeholder="Start a thread"
-              value={Content}
-              rows={1}
-              onChange={handleInput}
-            />
-            {imageSrc && (
-              <div className="image-container" style={{ marginTop: "5px" }}>
-                <img src={imageSrc} alt="Selected" />
-              </div>
-            )}
-            <i
-              class="fa-solid fa-link"
-              onClick={handleClickAddLink}
-              style={{ cursor: "pointer" }}
-            ></i>
-            <input
-              type="file"
-              ref={fileInputRef}
-              style={{ display: "none" }}
-              accept="image/*"
-              onChange={handleFileChange}
-            />
-          </div>
+          <img
+            src={"http://localhost:5000" + user.account.avatar_url}
+            alt="avatar"
+          />
+          <form id="postForm">
+            <div className="right-part">
+              <p className="username">{user.account.username}</p>
+              <textarea
+                className="post-area"
+                name="content" // Đảm bảo có name để FormData thu thập
+                placeholder="Start a thread"
+                value={Content}
+                rows={1}
+                onChange={handleInput}
+              />
+              {imageSrc && (
+                <div className="image-container" style={{ marginTop: "5px" }}>
+                  <img src={imageSrc} alt="Selected" />
+                </div>
+              )}
+              <i
+                className="fa-solid fa-link"
+                onClick={handleClickAddLink}
+                style={{ cursor: "pointer" }}
+              ></i>
+              <input
+                type="file"
+                name="file" // Đảm bảo có name để FormData thu thập
+                ref={fileInputRef}
+                style={{ display: "none" }}
+                accept="image/*"
+                onChange={handleFileChange}
+              />
+            </div>
+          </form>
         </div>
       </Modal.Body>
       <Modal.Footer>
