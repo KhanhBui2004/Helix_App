@@ -17,6 +17,8 @@ import Profile from "./components/Profile/Profile";
 import Search from "./components/Search/Search";
 import Admin from "./components/Admin/Admin";
 import Users from "./components/ManageUsers/User";
+import NewThread from "./components/NewThread/NewThread";
+import Notification from "./components/Notification/Notification";
 
 function LayoutUser() {
   const currentLocation = useLocation();
@@ -37,6 +39,8 @@ function LayoutUser() {
               <Route path="/" element={<Home />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/search" element={<Search />} />
+              <Route path="/new-thread" element={<NewThread />} />
+              <Route path="/notification" element={<Notification />} />
             </Routes>
           </div>
         </div>

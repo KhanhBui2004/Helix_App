@@ -90,12 +90,12 @@ const Navbar = () => {
                   </Link>
                 </li>
                 <li className="icon">
-                  <Link to="/">
+                  <Link to="/new-thread">
                     <i class="fa-solid fa-pen-to-square fa-2x"></i>
                   </Link>
                 </li>
                 <li className="icon">
-                  <Link to="/">
+                  <Link to="/notification">
                     <i class="fa-solid fa-heart fa-2x"></i>
                   </Link>
                 </li>
