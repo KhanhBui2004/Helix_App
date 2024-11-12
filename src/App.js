@@ -7,16 +7,18 @@ import {
 } from "react-router-dom";
 import "./App.css";
 import { ToastContainer } from "react-toastify";
+import { Rings } from "react-loader-spinner";
+import { UserContext } from "./context/UserContext";
 import SignUp from "./components/SignUp/SignUp";
 import LogIn from "./components/LogIn/LogIn";
 import Home from "./components/Home/Home";
 import Navbar from "./components/navbar/navbar";
 import Profile from "./components/Profile/Profile";
 import Search from "./components/Search/Search";
-import { Rings } from "react-loader-spinner";
-import { UserContext } from "./context/UserContext";
+import Admin from "./components/Admin/Admin";
+import Users from "./components/ManageUsers/User";
 
-function Layout() {
+function LayoutUser() {
   const currentLocation = useLocation();
   const isAuthPage =
     currentLocation.pathname === "/login" ||
@@ -50,6 +52,39 @@ function Layout() {
   );
 }
 
+function LayoutAdmin() {
+  const currentLocation = useLocation();
+  const isAuthPage =
+    currentLocation.pathname === "/login" ||
+    currentLocation.pathname === "/register";
+
+  return (
+    <div>
+      {/* Nếu không phải trang login hoặc register thì chia cột */}
+      {!isAuthPage ? (
+        <div className="content">
+          <div className="col-1">
+            <Navbar />
+          </div>
+          <div className="col-11">
+            <Routes>
+              <Route path="/admin" element={<Admin />} />
+              <Route path="/user" element={<Users />} />
+            </Routes>
+          </div>
+        </div>
+      ) : (
+        <>
+          <Routes>
+            <Route path="/login" element={<LogIn />} />
+            <Route path="/register" element={<SignUp />} />
+          </Routes>
+        </>
+      )}
+    </div>
+  );
+}
+
 function App() {
   const { user } = useContext(UserContext);
   return (
@@ -66,7 +101,15 @@ function App() {
             <div>Loading data...</div>
           </div>
         ) : (
-          <Layout />
+          <>
+            {user && user.account.is_admin === true ? (
+              <>
+                <LayoutAdmin />
+              </>
+            ) : (
+              <LayoutUser />
+            )}{" "}
+          </>
         )}
       </Router>
       <ToastContainer

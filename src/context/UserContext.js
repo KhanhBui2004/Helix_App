@@ -38,6 +38,7 @@ const UserProvider = ({ children }) => {
             username: response.username,
             email: response.email,
             full_name: response.full_name,
+            is_admin: response.is_admin,
             about_me: response.about_me,
             avatar_url: response.avatar_url,
             address: response.address,

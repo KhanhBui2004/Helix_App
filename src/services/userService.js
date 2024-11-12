@@ -20,11 +20,9 @@ const loginUser = (username, password) => {
 //   return axios.get(`/api/v1/user/read?page=${page}&limit=${limit}`);
 // };
 
-// const deleteUser = (user) => {
-//   return axios.delete("/api/v1/user/delete", {
-//     data: { id: user.id },
-//   });
-// };
+const deleteUser = (user) => {
+  return axios.delete(`/api/user/delete/${user.id}`);
+};
 
 // const fetchGroup = () => {
 //   return axios.get("/api/v1/group/read");
@@ -67,7 +65,7 @@ const getUserByUsername = (username) => {
 };
 
 // const getUserByEmail = (email) => {
-  // return axios.get(`/api/v1/user/read-info-user?email=${email}`);
+// return axios.get(`/api/v1/user/read-info-user?email=${email}`);
 // };
 
 // const ChangePassword = (data) => {
@@ -85,8 +83,8 @@ export {
   getUserPosts,
   updateUser,
   getUserByUsername,
+  deleteUser,
   // fetchAllUsers,
-  // deleteUser,
   // fetchGroup,
   // createNewUser,
   // updateCurrentUser,

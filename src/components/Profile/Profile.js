@@ -45,8 +45,6 @@ const Profile = () => {
   useEffect(() => {
     setCurrentUser(user.account);
     fetchUserPosts(7);
-
-    // print(currentUser);
   }, [user]);
 
   return (
