@@ -103,7 +103,7 @@ const Home = (props) => {
                       {item.media_url ? (
                         <div className="img-content">
                           <img
-                            src={item.media_url}
+                            src={"http://localhost:5000" + item.media_url}
                             alt="img"
                             width="100%"
                             height="316"
