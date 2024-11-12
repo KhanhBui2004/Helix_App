@@ -16,6 +16,14 @@ const loginUser = (username, password) => {
   });
 };
 
+const postContent = (user_id, content, media_url) => {
+  return axios.post("/api/post/", {
+    user_id,
+    content,
+    media_url,
+  });
+};
+
 // const fetchAllUsers = (page, limit) => {
 //   return axios.get(`/api/v1/user/read?page=${page}&limit=${limit}`);
 // };
@@ -84,6 +92,7 @@ export {
   updateUser,
   getUserByUsername,
   deleteUser,
+  postContent,
   // fetchAllUsers,
   // fetchGroup,
   // createNewUser,
