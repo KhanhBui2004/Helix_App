@@ -3,7 +3,7 @@ import "./Profile.css";
 import {
   getUserPosts,
   likePost,
-  getLiked,
+  getUserLiked,
   unLikePost,
 } from "../../services/userService";
 import { UserContext } from "../../context/UserContext";
@@ -28,13 +28,14 @@ const Profile = () => {
   };
 
   const fetchLike = async () => {
+    let response = await getUserLiked();
     let data = [];
-    for (let element of userPosts) {
-      let response = await getLiked(element.id); // Chờ từng response trước khi tiếp tục
-      if (response && +response.status === 200) {
+    if (response && +response.status === 200) {
+      response.posts.forEach((element) => {
         data.push(element.id);
-      }
+      });
     }
+    console.log(data);
 
     setLiked(data);
   };

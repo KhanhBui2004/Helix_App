@@ -32,6 +32,10 @@ const getLiked = (post_id) => {
   return axios.get(`/api/like/${post_id}`);
 };
 
+const getUserLiked = () => {
+  return axios.get("/api/like/user-likes");
+};
+
 // const fetchAllUsers = (page, limit) => {
 //   return axios.get(`/api/v1/user/read?page=${page}&limit=${limit}`);
 // };
@@ -104,6 +108,7 @@ export {
   likePost,
   getLiked,
   unLikePost,
+  getUserLiked,
   // fetchAllUsers,
   // fetchGroup,
   // createNewUser,

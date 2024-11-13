@@ -3,7 +3,7 @@ import "./Home.css";
 import {
   getPosts,
   likePost,
-  getLiked,
+  getUserLiked,
   unLikePost,
 } from "../../services/userService";
 import { UserContext } from "../../context/UserContext";
@@ -18,9 +18,9 @@ const Home = (props) => {
 
   const handleLike = async (post_id) => {
     if (liked.includes(post_id)) {
-      let response = await unLikePost(post_id);
+      await unLikePost(post_id);
     } else {
-      let response = await likePost(post_id);
+      await likePost(post_id);
     }
     await fetchLike();
   };
@@ -39,13 +39,14 @@ const Home = (props) => {
   };
 
   const fetchLike = async () => {
+    let response = await getUserLiked();
     let data = [];
-    for (let element of Post) {
-      let response = await getLiked(element.id); // Chờ từng response trước khi tiếp tục
-      if (response && +response.status === 200) {
+    if (response && +response.status === 200) {
+      response.posts.forEach((element) => {
         data.push(element.id);
-      }
+      });
     }
+    console.log(data);
 
     setLiked(data);
   };
@@ -55,7 +56,9 @@ const Home = (props) => {
   }, [Post]);
 
   useEffect(() => {
-    console.log("liked: " + liked);
+    liked.forEach((element) => {
+      console.log("liked: " + element.id);
+    });
   }, [liked]);
 
   const getTimePost = (postDate) => {
