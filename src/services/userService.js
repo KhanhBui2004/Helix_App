@@ -64,6 +64,10 @@ const getUserAccount = () => {
   return axios.get("/api/user/profile");
 };
 
+const getUser = (username) => {
+  return axios.get(`/api/user/${username}`);
+};
+
 const logoutUser = () => {
   return axios.post("/api/user/logout");
 };
@@ -109,6 +113,7 @@ export {
   getLiked,
   unLikePost,
   getUserLiked,
+  getUser,
   // fetchAllUsers,
   // fetchGroup,
   // createNewUser,

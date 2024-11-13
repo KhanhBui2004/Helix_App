@@ -133,10 +133,20 @@ const Home = (props) => {
                     </div>
                     <div className="content-left">
                       <div className="top">
-                        <div className="username">
-                          {item.author}
-                          <i class="fa-solid fa-circle-check"></i>
-                        </div>
+                        <Link
+                          className="link-profile"
+                          to={
+                            user.account.username === item.author
+                              ? "/profile"
+                              : `/profile/${item.author}`
+                          }
+                        >
+                          <div className="username">
+                            {item.author}
+                            <i class="fa-solid fa-circle-check"></i>
+                          </div>
+                        </Link>
+
                         <div className="time">
                           {getTimePost(item.created_at)}{" "}
                           <i class="fa-solid fa-ellipsis"></i>
