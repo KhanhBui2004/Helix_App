@@ -57,9 +57,13 @@ const Profile = () => {
 
   useEffect(() => {
     setCurrentUser(user.account);
-    fetchUserPosts(user.account.id);
-    fetchFollow(user.account.id);
+    fetchUserPosts(2);
+    fetchFollow(2);
   }, [user]);
+
+  useEffect(() => {
+    fetchLike();
+  }, [userPosts]);
 
   const onHideModalEditProfile = () => {
     setIsShowModalEditProfile(false);
@@ -113,13 +117,17 @@ const Profile = () => {
       <div className="threads">
         <div className="title">
           <div
-            className={`content-title ${activeTab === "Threads" ? "selected" : ""}`}
+            className={`content-title ${
+              activeTab === "Threads" ? "selected" : ""
+            }`}
             onClick={() => setActiveTab("Threads")}
           >
             <p>Threads</p>
           </div>
           <div
-            className={`content-title ${activeTab === "Followers" ? "selected" : ""}`}
+            className={`content-title ${
+              activeTab === "Followers" ? "selected" : ""
+            }`}
             onClick={() => setActiveTab("Followers")}
           >
             <p>Followers</p>
@@ -197,20 +205,20 @@ const Profile = () => {
             {followers && followers.length > 0 ? (
               followers.map((follower) => (
                 <div className="item">
-                      <div className="avt">
-                        <img
-                          src={"http://localhost:5000" + follower.media_url}
-                          width={50}
-                          height={50}
-                        ></img>
-                      </div>
-                      <div className="info-user">
-                        <div className="info">
-                          <p className="username">{follower.username}</p>
-                          <p className="followers">22k followers</p>
-                        </div>
-                      </div>
-                 </div>
+                  <div className="avt">
+                    <img
+                      src={"http://localhost:5000" + follower.media_url}
+                      width={50}
+                      height={50}
+                    ></img>
+                  </div>
+                  <div className="info-user">
+                    <div className="info">
+                      <p className="username">{follower.username}</p>
+                      <p className="followers">22k followers</p>
+                    </div>
+                  </div>
+                </div>
               ))
             ) : (
               <p>No followers yet.</p>
