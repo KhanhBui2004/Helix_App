@@ -8,6 +8,7 @@ import {
 } from "../../services/userService";
 import { UserContext } from "../../context/UserContext";
 import { Link } from "react-router-dom";
+import ModalThread from "../Thread/ModalThread";
 
 const Home = (props) => {
   const { user } = useContext(UserContext);
@@ -15,6 +16,7 @@ const Home = (props) => {
   const [Post, setPost] = useState([]);
   const [liked, setLiked] = useState([]);
   const [dateTime, setDateTime] = useState(new Date());
+  const [selectedItem, setSelectedItem] = useState(null);
 
   const handleLike = async (post_id) => {
     if (liked.includes(post_id)) {
@@ -23,6 +25,13 @@ const Home = (props) => {
       await likePost(post_id);
     }
     await fetchLike();
+  };
+
+  const [isShowModalThread, setIsShowModalThread] = useState(false);
+
+  const onHideModalThread = () => {
+    setIsShowModalThread(false);
+    setSelectedItem(null);
   };
 
   useEffect(() => {
@@ -46,20 +55,23 @@ const Home = (props) => {
         data.push(element.id);
       });
     }
-    console.log(data);
 
     setLiked(data);
+  };
+
+  const getLikedFromModal = (state, post_id) => {
+    if (state === true) {
+      setLiked((prev) => [...prev, post_id]);
+      likePost(post_id);
+    } else {
+      setLiked(liked.filter((likedId) => likedId !== post_id));
+      unLikePost(post_id);
+    }
   };
 
   useEffect(() => {
     fetchLike();
   }, [Post]);
-
-  useEffect(() => {
-    liked.forEach((element) => {
-      console.log("liked: " + element.id);
-    });
-  }, [liked]);
 
   const getTimePost = (postDate) => {
     let date2 = new Date(postDate + " GMT+0700");
@@ -174,11 +186,17 @@ const Home = (props) => {
                           }
                           onClick={() => handleLike(item.id)}
                         ></i>
-                        <i class="fa-regular fa-comment fa-lg"></i>
+                        <i
+                          class="fa-regular fa-comment fa-lg"
+                          onClick={() => {
+                            setSelectedItem(item);
+                            setIsShowModalThread(true);
+                          }}
+                        ></i>
                         <i class="fa-solid fa-retweet fa-lg"></i>
                         <i class="fa-regular fa-share-from-square fa-lg"></i>
                       </div>
-                      <div className="replies">4 replies</div>
+                      {/* <div className="replies">4 replies</div> */}
                     </div>
                   </div>
                 </>
@@ -187,6 +205,21 @@ const Home = (props) => {
           </>
         ) : (
           <> Không có bài đăng</>
+        )}
+        {selectedItem ? (
+          <>
+            <ModalThread
+              show={isShowModalThread}
+              onHide={onHideModalThread}
+              setLiked={(state, post_id) => getLikedFromModal(state, post_id)}
+              liked={liked.includes(selectedItem.id)}
+              currentPost={selectedItem}
+              user={user}
+              dateTime={dateTime}
+            />
+          </>
+        ) : (
+          <></>
         )}
       </div>
     </>
