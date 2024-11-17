@@ -10,6 +10,7 @@ const Notification = () => {
         <button className="reply-btn">Replies</button>
         <button className="mention-btn">Mentions</button>
         <button className="repost-btn">Reposts</button>
+        <p>New Folower</p>
       </div>
       <div className="list-user">
         <div className="item">

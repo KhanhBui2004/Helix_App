@@ -76,7 +76,7 @@ const Profile = () => {
 
   useEffect(() => {
     setCurrentUser(user.account);
-    fetchUserPosts(7);
+    fetchUserPosts(2);
   }, [user]);
 
   return (
@@ -93,6 +93,7 @@ const Profile = () => {
                   <p className="follower">203 followers</p>
                 </div>
                 <div className="avt">
+                  {/* eslint-disable-next-line */}
                   <img
                     src={"http://localhost:5000" + currentUser.avatar_url}
                   ></img>
