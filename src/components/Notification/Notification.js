@@ -33,13 +33,6 @@ const Notification = () => {
 
   return (
     <div className="container mx-auto my-auto">
-      <div className="option">
-        <button className="all-btn">All</button>
-        <button className="follow-btn">Follows</button>
-        <button className="reply-btn">Replies</button>
-        <button className="mention-btn">Mentions</button>
-        <button className="repost-btn">Reposts</button>
-      </div>
       <div className="list-user">
         {postFollow && postFollow.length > 0 ? (
           <>
