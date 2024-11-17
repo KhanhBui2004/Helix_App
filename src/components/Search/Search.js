@@ -1,6 +1,7 @@
 import "./Search.css";
 import { useEffect, useState } from "react";
-import { getUserByUsername } from "../../services/userService";
+import { getUserByUsername, postFollow } from "../../services/userService";
+import { toast } from "react-toastify";
 
 const Search = () => {
   const [valueSearch, setValueSearch] = useState("");
@@ -17,6 +18,20 @@ const Search = () => {
 
     if (valueSearch != "") fetchListUser(valueSearch);
   }, [valueSearch]);
+
+  const handleFollow = async (id) => {
+    try {
+      let response = await postFollow(id); // Gọi API postFollow
+      if (response && response.status === 201) {
+        toast.success("Follow thành công!");
+      } else {
+        toast.error("Follow thất bại!");
+      }
+    } catch (error) {
+      console.error("Lỗi khi gửi yêu cầu Follow:", error);
+      alert("Có lỗi xảy ra!");
+    }
+  };
 
   return (
     <>
@@ -54,9 +69,13 @@ const Search = () => {
                           <p className="followers">22k followers</p>
                         </div>
                         <div className="btn-follow">
-                          <button type="button" class="btn btn-outline-dark">
-                            Follow
-                          </button>
+                        <button
+                          type="button"
+                          className="btn btn-outline-dark"
+                          onClick={() => handleFollow(item.id)} // Gửi id của người dùng
+                        >
+                          Follow
+                        </button>
                         </div>
                       </div>
                     </div>
