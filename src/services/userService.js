@@ -98,6 +98,27 @@ const getUserByUsername = (username) => {
 //   });
 // };
 
+const getUserFollowers = (id) => {
+  return axios.get(`/api/follow/followers/${id}`);
+}
+
+const postFollow = (id) => {
+  return axios.post(`/api/follow/${id}`);
+}
+
+const acceptFollow = (id) => {
+  return axios.post(`/api/follow/accept_follow/${id}`);
+}
+
+const unFollow = (id) => {
+  return axios.delete(`/api/follow/delete_follow/${id}`);
+}
+
+const getPostFollow = () => {
+  return axios.get(`/api/follow/`)
+}
+
+
 export {
   registerNewUser,
   loginUser,
@@ -120,4 +141,9 @@ export {
   // updateCurrentUser,
   // getUserByEmail,
   // ChangePassword,
+  getUserFollowers,
+  postFollow,
+  acceptFollow,
+  unFollow,
+  getPostFollow
 };
