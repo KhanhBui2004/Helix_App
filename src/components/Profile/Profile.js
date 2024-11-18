@@ -9,6 +9,7 @@ import {
 } from "../../services/userService";
 import { UserContext } from "../../context/UserContext";
 import ModalEditProfile from "./ModalEditProfile";
+import ModalThread from "../Thread/ModalThread";
 
 const Profile = () => {
   const { user } = useContext(UserContext);
@@ -16,7 +17,25 @@ const Profile = () => {
   const [userPosts, setUserPosts] = useState([]);
   const [liked, setLiked] = useState([]);
   const [followers, setFollowers] = useState([]);
+  const [dateTime, setDateTime] = useState(new Date());
   const [isShowModalEditProfile, setIsShowModalEditProfile] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(null);
+  const [isShowModalThread, setIsShowModalThread] = useState(false);
+
+  const onHideModalThread = () => {
+    setIsShowModalThread(false);
+    setSelectedItem(null);
+  };
+
+  const getLikedFromModal = (state, post_id) => {
+    if (state === true) {
+      setLiked((prev) => [...prev, post_id]);
+      likePost(post_id);
+    } else {
+      setLiked(liked.filter((likedId) => likedId !== post_id));
+      unLikePost(post_id);
+    }
+  };
 
   // Trạng thái để quản lý tab đang chọn
   const [activeTab, setActiveTab] = useState("Threads");
@@ -185,7 +204,13 @@ const Profile = () => {
                           }
                           onClick={() => handleLike(item.id)}
                         ></i>
-                        <i className="fa-regular fa-comment fa-lg"></i>
+                        <i
+                          className="fa-regular fa-comment fa-lg"
+                          onClick={() => {
+                            setSelectedItem(item);
+                            setIsShowModalThread(true);
+                          }}
+                        ></i>
                         <i className="fa-solid fa-retweet fa-lg"></i>
                         <i className="fa-regular fa-share-from-square fa-lg"></i>
                       </div>
@@ -224,6 +249,21 @@ const Profile = () => {
               <p>No followers yet.</p>
             )}
           </div>
+        )}
+        {selectedItem ? (
+          <>
+            <ModalThread
+              show={isShowModalThread}
+              onHide={onHideModalThread}
+              setLiked={(state, post_id) => getLikedFromModal(state, post_id)}
+              liked={liked.includes(selectedItem.id)}
+              currentPost={selectedItem}
+              user={user}
+              dateTime={dateTime}
+            />
+          </>
+        ) : (
+          <></>
         )}
       </div>
     </div>
