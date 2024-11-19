@@ -17,6 +17,7 @@ const Home = (props) => {
   const [liked, setLiked] = useState([]);
   const [dateTime, setDateTime] = useState(new Date());
   const [selectedItem, setSelectedItem] = useState(null);
+  const [isShowModalThread, setIsShowModalThread] = useState(false);
 
   const handleLike = async (post_id) => {
     if (liked.includes(post_id)) {
@@ -26,8 +27,6 @@ const Home = (props) => {
     }
     await fetchLike();
   };
-
-  const [isShowModalThread, setIsShowModalThread] = useState(false);
 
   const onHideModalThread = () => {
     setIsShowModalThread(false);

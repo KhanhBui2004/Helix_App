@@ -1,5 +1,5 @@
 import { Modal } from "react-bootstrap";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import "./ModalThread.css";
 import { toast } from "react-toastify";
@@ -8,7 +8,27 @@ import { postComment, getPostComments } from "../../services/userService";
 const ModalThread = (props) => {
   const { currentPost, user, dateTime, liked } = props;
   const [comment, setComment] = useState("");
-  const [postComments, setPostComments] = useState({});
+  const [postComments, setPostComments] = useState([]);
+  const textareaRefs = useRef([]);
+  const divRefs = useRef([]);
+
+  useEffect(() => {
+    // Cập nhật chiều cao của div theo chiều cao của textarea
+    postComments.forEach((_, index) => {
+      const textarea = textareaRefs.current[index];
+      const div = divRefs.current[index];
+
+      if (textarea && div) {
+        // Đặt chiều cao textarea về auto để reset
+        textarea.style.height = "auto";
+        // Cập nhật chiều cao mới của textarea
+        textarea.style.height = `${textarea.scrollHeight}px`;
+
+        // Cập nhật chiều cao của div cha theo chiều cao của textarea
+        div.style.height = `${textarea.scrollHeight}px`;
+      }
+    });
+  }, [postComments]); // Chạy lại mỗi khi postComments thay đổi
 
   const handlePostComment = async () => {
     if (comment === "") {
@@ -145,7 +165,7 @@ const ModalThread = (props) => {
             <div className="user-comment">
               <div className="avt col-1">
                 <img
-                  src={"http://localhost:5000" + currentPost.avatar}
+                  src={"http://localhost:5000" + user.account.avatar_url}
                   alt="logo"
                   width="40"
                   height="40"
@@ -170,35 +190,45 @@ const ModalThread = (props) => {
             <div className="list-comment">
               {postComments && postComments.length > 0 ? (
                 <>
-                  {postComments.map((item, index) => {
-                    return (
-                      <>
-                        <div className="content-comment">
-                          <div className="user">
-                            <div className="avt">
-                              <img
-                                src={"http://localhost:5000" + item.user.avt}
-                                alt="logo"
-                                width="40"
-                                height="40"
-                              ></img>
-                              <p>{item.user.username}</p>
-                            </div>
-                            <div className="report">
-                              <i class="fa-solid fa-flag"></i>
-                            </div>
-                          </div>
-                          <div className="title">
-                            <textarea
-                              className="comment-area"
-                              name="comment-area"
-                              value={item.content}
-                            />
-                          </div>
+                  {postComments.map((item, index) => (
+                    <div className="content-comment">
+                      <div className="user">
+                        <div className="avt">
+                          <img
+                            src={"http://localhost:5000" + item.user.avt}
+                            alt="logo"
+                            width="40"
+                            height="40"
+                          />
+                          <Link
+                            className="link-profile"
+                            to={
+                              user.account.username === item.user.username
+                                ? "/profile"
+                                : `/profile/${item.user.username}`
+                            }
+                          >
+                            <p>{item.user.username}</p>
+                          </Link>
                         </div>
-                      </>
-                    );
-                  })}
+                        <div className="report">
+                          <i className="fa-solid fa-flag"></i>
+                        </div>
+                      </div>
+                      <div
+                        className="title"
+                        ref={(el) => (divRefs.current[index] = el)} // Tham chiếu div cha
+                      >
+                        <textarea
+                          ref={(el) => (textareaRefs.current[index] = el)} // Tham chiếu textarea
+                          className="comment-area"
+                          name="comment-area"
+                          value={item.content}
+                          readOnly
+                        />
+                      </div>
+                    </div>
+                  ))}
                 </>
               ) : (
                 <></>

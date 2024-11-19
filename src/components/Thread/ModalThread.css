@@ -41,45 +41,54 @@
 
   .list-comment {
     margin-top: 20px;
+
     .content-comment {
-      margin-top: 20px;
-      .user {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        .avt {
-          display: flex;
-          align-items: center;
-          gap: 10px;
-          p {
-            margin: 0;
-          }
-        }
-        .report {
-          text-align: center;
-          color: red;
-        }
-        .report:hover {
-          cursor: pointer;
-        }
+      display: flex; /* Dùng flex để bố trí các thành phần */
+      flex-direction: column; /* Sắp xếp các thành phần theo chiều dọc */
+      margin-bottom: 16px; /* Khoảng cách giữa các bình luận */
+      border: 1px solid #ccc; /* Đường viền giúp dễ kiểm tra */
+      padding: 10px; /* Khoảng cách bên trong khung */
+      border-radius: 8px; /* Bo góc */
+    }
+
+    .content-comment .user {
+      display: flex; /* Sắp xếp avatar và thông tin người dùng ngang hàng */
+      justify-content: space-between; /* Tách biệt hai thành phần */
+      align-items: center; /* Căn giữa theo trục dọc */
+    }
+
+    .content-comment .user .avt {
+      display: flex; /* Bố trí avatar và tên người dùng trên cùng một dòng */
+      align-items: center;
+      gap: 8px; /* Khoảng cách giữa ảnh và tên người dùng */
+      .link-profile {
+        color: #000000bc;
+        text-decoration: none;
       }
-      .title {
-        text-align: center;
-        margin-top: 20px;
-        .comment-area {
-          width: 100%;
-          margin-bottom: 10px;
-          padding: 0 10px;
-          /* flex: 1; */
-          /* overflow: hidden; */
-          border: none;
-          outline: none;
-          font-size: 16px;
-          border-radius: 10px;
-          background-color: #f0f2f5;
-          /* resize: none; */
-        }
+      .link-profile:hover {
+        color: #198754;
       }
+    }
+
+    .content-comment .user .report {
+      cursor: pointer; /* Con trỏ hiển thị khi hover */
+    }
+
+    .content-comment .title {
+      margin-top: 10px; /* Tạo khoảng cách giữa phần user và comment */
+    }
+
+    .comment-area {
+      width: 100%;
+      min-height: 40px; /* Đặt chiều cao tối thiểu */
+      resize: none; /* Không cho phép kéo để thay đổi kích thước */
+      overflow: hidden; /* Ẩn thanh cuộn nếu có */
+      font-size: 14px;
+      padding: 8px;
+      box-sizing: border-box; /* Bao gồm padding trong width/height */
+      border: 1px solid #ddd;
+      border-radius: 20px;
+      background-color: #f0f2f5;
     }
   }
 }
