@@ -57,9 +57,13 @@ const Profile = () => {
 
   useEffect(() => {
     setCurrentUser(user.account);
-    fetchUserPosts(2);
-    fetchFollow(2);
+    fetchUserPosts(user.account.id);
+    fetchFollow(user.account.id);
   }, [user]);
+
+  useEffect(() => {
+    fetchLike();
+  }, [userPosts]);
 
   const onHideModalEditProfile = () => {
     setIsShowModalEditProfile(false);

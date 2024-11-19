@@ -124,7 +124,7 @@ const NewThread = () => {
                 </div>
               )}
               <i
-                className="fa-solid fa-link"
+                className="fa-solid fa-image"
                 onClick={handleClickAddLink}
                 style={{ cursor: "pointer" }}
               ></i>

@@ -20,6 +20,7 @@ import Users from "./components/ManageUsers/User";
 import NewThread from "./components/NewThread/NewThread";
 import Notification from "./components/Notification/Notification";
 import ProfileUser from "./components/Profile/ProfileUser";
+import DashBoard from "./components/DashBoard/DashBoard";
 
 function LayoutUser() {
   const currentLocation = useLocation();
@@ -76,6 +77,7 @@ function LayoutAdmin() {
             <Routes>
               <Route path="/admin" element={<Admin />} />
               <Route path="/user" element={<Users />} />
+              <Route path="/dash-board" element={<DashBoard />} />
             </Routes>
           </div>
         </div>

@@ -34,6 +34,7 @@ const UserProvider = ({ children }) => {
           isLoading: false,
           isAuthenticated: true,
           account: {
+            id: response.id,
             role: response.is_admin,
             username: response.username,
             email: response.email,

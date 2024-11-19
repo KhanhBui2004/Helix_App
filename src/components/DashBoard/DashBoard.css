@@ -1,0 +1,83 @@
+.Title {
+  margin-top: 10px;
+}
+
+.Total {
+  display: flex;
+  gap: 0 20px;
+  margin-top: 15px;
+}
+
+.Total_Post {
+  border: 1px solid #000;
+  width: 290px;
+  border-radius: 1rem;
+  display: flex;
+  background-color: aliceblue;
+  p {
+    margin-left: 10px;
+  }
+  h4 {
+    margin-left: 10px;
+  }
+}
+
+.Total_User {
+  border: 1px solid #000;
+  width: 290px;
+  border-radius: 1rem;
+  display: flex;
+  background-color: aliceblue;
+  p {
+    margin-left: 10px;
+  }
+  h4 {
+    margin-left: 10px;
+    /* border: 1px solid #000; */
+  }
+}
+
+.fa-users {
+  display: flex;
+  height: 50px;
+  width: 50px;
+  align-items: center;
+  justify-content: center;
+  color: #00bf63cf;
+  background-color: #00bf6349;
+  border-radius: 1rem;
+  margin-top: 10px;
+  margin-left: 130px;
+}
+
+.fa-cube {
+  display: flex;
+  height: 50px;
+  width: 50px;
+  align-items: center;
+  justify-content: center;
+  color: #815af9;
+  background-color: #b097fca6;
+  border-radius: 1rem;
+  margin-top: 10px;
+  margin-left: 130px;
+}
+
+.Post_Chart {
+  border-radius: 1rem;
+  background-color: aliceblue;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  h3 {
+    margin-left: 10px;
+  }
+}
+
+.date-picker {
+  display: flex;
+  gap: 0 10px;
+  margin-bottom: 20px;
+  .pickTime {
+    width: 150px;
+  }
+}

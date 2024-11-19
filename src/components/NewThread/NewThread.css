@@ -78,12 +78,15 @@
   justify-content: right;
 }
 
-.fa-link {
+.fa-image {
+  display: flex;
   cursor: pointer;
+  width: 20px;
+  justify-content: center;
   transition: background-color 0.2s ease;
 }
 
-.fa-link:hover {
+.fa-image:hover {
   background-color: rgba(0, 0, 0, 0.1);
 }
 

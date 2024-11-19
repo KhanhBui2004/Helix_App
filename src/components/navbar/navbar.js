@@ -57,6 +57,11 @@ const Navbar = () => {
                     <i class="fa-solid fa-user fa-2x"></i>
                   </Link>
                 </li>
+                <li className="icon">
+                  <Link to="/dash-board">
+                    <i class="fa-solid fa-chart-line fa-2x"></i>
+                  </Link>
+                </li>
                 {/* <li className="icon">
                   <Link to="/">
                     <i class="fa-solid fa-pen-to-square fa-2x"></i>
