@@ -11,7 +11,7 @@ const Notification = () => {
     let data = await getPostFollow();
     console.log(data);
     setPostFollow(data.followers);
-  }
+  };
 
   useEffect(() => {
     fetchPostFollow();
@@ -25,11 +25,10 @@ const Notification = () => {
       } else {
         toast.error("Accept thất bại!");
       }
-    }
-    catch (error) {
+    } catch (error) {
       toast.error("Accept thất bại!");
     }
-  }
+  };
 
   return (
     <div className="container mx-auto my-auto">

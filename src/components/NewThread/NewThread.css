@@ -37,8 +37,7 @@
 }
 
 .right-part {
-  display: flex;
-  flex-direction: column;
+  gap: 10px 0;
   margin-left: 20px;
 }
 
@@ -80,7 +79,10 @@
 }
 
 .fa-image {
+  display: flex;
   cursor: pointer;
+  width: 20px;
+  justify-content: center;
   transition: background-color 0.2s ease;
 }
 
