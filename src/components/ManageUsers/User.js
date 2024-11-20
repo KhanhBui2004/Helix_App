@@ -86,6 +86,9 @@ const Users = (props) => {
                     <span class="ml-4">Is_admin</span>
                   </th>
                   <th>
+                    <span class="ml-4">Is_locked</span>
+                  </th>
+                  <th>
                     <span class="ml-4">Actions</span>
                   </th>
                 </tr>
@@ -115,6 +118,11 @@ const Users = (props) => {
                           <td>
                             <div class="p-2">
                               {item.is_admin === true ? "True" : "False"}
+                            </div>
+                          </td>
+                          <td>
+                            <div class="p-2">
+                              {item.is_lock === true ? "True" : "False"}
                             </div>
                           </td>
                           <td>

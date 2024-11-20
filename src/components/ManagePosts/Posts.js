@@ -18,6 +18,7 @@ const Posts = (props) => {
 
     if (response && response.status === 200) {
       setListPosts(response.posts);
+      console.log(response.posts);
     }
   };
 
@@ -82,7 +83,7 @@ const Posts = (props) => {
                     <span class="ml-2">Author</span>
                   </th>
                   <th>
-                    <span class="ml-4">State</span>
+                    <span class="ml-4">Toxic</span>
                   </th>
                   <th>
                     <span class="ml-4">Actions</span>
@@ -108,11 +109,11 @@ const Posts = (props) => {
                           </td>
                           <td>
                             <div class="p-2 d-flex flex-column">
-                              {item.email}
+                              {item.author}
                             </div>
                           </td>
                           <td>
-                            <div class="p-2">Trạng Thái</div>
+                            <div class="p-2">{item.toxic === true ? "True" : "False"}</div>
                           </td>
                           <td>
                             <div class="p-2 icons">
