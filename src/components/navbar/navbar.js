@@ -58,25 +58,15 @@ const Navbar = () => {
                   </Link>
                 </li>
                 <li className="icon">
-                  <Link to="/dash-board">
-                    <i class="fa-solid fa-chart-line fa-2x"></i>
-                  </Link>
-                </li>
-                {/* <li className="icon">
-                  <Link to="/">
+                  <Link to="/posts">
                     <i class="fa-solid fa-pen-to-square fa-2x"></i>
                   </Link>
                 </li>
                 <li className="icon">
-                  <Link to="/">
-                    <i class="fa-solid fa-heart fa-2x"></i>
+                  <Link to="/dash-board">
+                    <i class="fa-solid fa-chart-line fa-2x"></i>
                   </Link>
                 </li>
-                <li className="icon">
-                  <Link to="/profile">
-                    <i class="fa-solid fa-user fa-2x"></i>
-                  </Link>
-                </li> */}
               </ul>
             </div>
           </>

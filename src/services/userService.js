@@ -88,6 +88,10 @@ const getUserPosts = (id) => {
   return axios.get(`/api/post/user/${id}`);
 };
 
+const deletePostAdmin = (postID) => {
+  return axios.delete(`/api/post/delete/${postID}`);
+};
+
 const updateUser = (form) => {
   return axios.put("/api/user/profile", form);
 };
@@ -108,24 +112,23 @@ const getUserByUsername = (username) => {
 
 const getUserFollowers = (id) => {
   return axios.get(`/api/follow/followers/${id}`);
-}
+};
 
 const postFollow = (id) => {
   return axios.post(`/api/follow/${id}`);
-}
+};
 
 const acceptFollow = (id) => {
   return axios.post(`/api/follow/accept_follow/${id}`);
-}
+};
 
 const unFollow = (id) => {
   return axios.delete(`/api/follow/delete_follow/${id}`);
-}
+};
 
 const getPostFollow = () => {
-  return axios.get(`/api/follow/`)
-}
-
+  return axios.get(`/api/follow/`);
+};
 
 export {
   registerNewUser,
@@ -145,6 +148,7 @@ export {
   getUser,
   postComment,
   getPostComments,
+  deletePostAdmin,
   // fetchAllUsers,
   // fetchGroup,
   // createNewUser,
@@ -155,5 +159,5 @@ export {
   postFollow,
   acceptFollow,
   unFollow,
-  getPostFollow
+  getPostFollow,
 };
