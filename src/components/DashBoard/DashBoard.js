@@ -148,7 +148,7 @@ const DashBoard = () => {
   };
 
   return (
-    <div className="container mx-auto my-auto">
+    <div className="container-sm mx-auto my-auto">
       <div className="Title">
         <h1>DashBoard</h1>
       </div>

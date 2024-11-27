@@ -49,7 +49,7 @@ const Posts = (props) => {
 
   return (
     <>
-      <div className="container">
+      <div className="container-sm">
         <div className="manage-user-container">
           <div className="user-header">
             <div className="title mt-3">
@@ -113,7 +113,9 @@ const Posts = (props) => {
                             </div>
                           </td>
                           <td>
-                            <div class="p-2">{item.toxic === true ? "True" : "False"}</div>
+                            <div class="p-2">
+                              {item.toxic === true ? "True" : "False"}
+                            </div>
                           </td>
                           <td>
                             <div class="p-2 icons">

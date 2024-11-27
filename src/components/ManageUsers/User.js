@@ -49,7 +49,7 @@ const Users = (props) => {
 
   return (
     <>
-      <div className="container">
+      <div className="container-sm">
         <div className="manage-user-container">
           <div className="user-header">
             <div className="title mt-3">
