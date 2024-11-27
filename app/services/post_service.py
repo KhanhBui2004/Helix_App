@@ -1,7 +1,7 @@
-from app.models import Post, User
+from app.models import Post, User, Comment
 from app import db
 from datetime import datetime
-
+from app.model_toxic_bert import toxic_pipeline
 
 def create_post(data, user_id):
     content = data.get('content')
@@ -37,6 +37,9 @@ def delete_post_by_admin(post_id):
     if not post:
         return {'message': 'Post not found', 'status': 404}
 
+    # Xóa tất cả các comments liên quan trước
+    Comment.query.filter_by(post_id=post_id).delete()
+
     db.session.delete(post)
     db.session.commit()
 
@@ -54,7 +57,9 @@ def get_user_posts(user_id):
             'id': post.id,
             'content': post.content,
             'media_url': post.media_url,
-            'created_at': post.created_at
+            'created_at': post.created_at,
+            'author': post.author.username,
+            'avatar': post.author.media_url
         } for post in posts],
         'status': 200
     }
@@ -63,6 +68,14 @@ def get_user_posts(user_id):
 def get_all_posts():
     posts = Post.query.all()
     posts = sorted(posts, key=lambda x: x.id, reverse=True)
+    for post in posts:
+        rs = toxic_pipeline(post.content)[0]
+        #kiểm tra score toxic
+        if rs['score'] > 0.4:
+            post.toxic = True
+        else:
+            post.toxic = False
+
     return {
         'posts': [{
             'id': post.id,
@@ -70,7 +83,8 @@ def get_all_posts():
             'media_url': post.media_url,
             'created_at': post.created_at,
             'author': post.author.username,
-            'avatar': post.author.media_url
+            'avatar': post.author.media_url,
+            'toxic': post.toxic
         } for post in posts],
         'status': 200
     }
