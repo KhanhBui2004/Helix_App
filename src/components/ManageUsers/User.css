@@ -1,34 +1,39 @@
+.container-sm {
+  border-radius: 30px;
+  border: 1px solid #000;
+  background: #ffffff;
+  max-width: 1000px !important;
+  padding: 0 24px;
+}
 .modal-user {
-    .content-body {
-      .red {
-        color: red;
-      }
+  .content-body {
+    .red {
+      color: red;
     }
   }
-  
-  .manage-user-container {
-    i {
-      padding-right: 7px;
-    }
-  
-    .actions {
-      .refresh {
-        margin-right: 10px;
-      }
-    }
-  
-    .user-body {
-      .edit {
-        padding-right: 10px;
-        color: orange;
-        cursor: pointer;
-      }
-  
-      .delete {
-        color: red;
-        cursor: pointer;
-      }
+}
+
+.manage-user-container {
+  i {
+    padding-right: 7px;
+  }
+
+  .actions {
+    .refresh {
+      margin-right: 10px;
     }
   }
-  
-  
+
+  .user-body {
+    .edit {
+      padding-right: 10px;
+      color: orange;
+      cursor: pointer;
+    }
+
+    .delete {
+      color: red;
+      cursor: pointer;
+    }
+  }
+}

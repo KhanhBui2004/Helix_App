@@ -130,6 +130,14 @@ const getPostFollow = () => {
   return axios.get(`/api/follow/`);
 };
 
+const getCommentsToxic = () => {
+  return axios.get("/api/comment/toxic");
+};
+
+const deleteCommentAdmin = (commentID) => {
+  return axios.delete(`/api/comment/delete/${commentID}`);
+};
+
 export {
   registerNewUser,
   loginUser,
@@ -149,6 +157,8 @@ export {
   postComment,
   getPostComments,
   deletePostAdmin,
+  getCommentsToxic,
+  deleteCommentAdmin,
   // fetchAllUsers,
   // fetchGroup,
   // createNewUser,

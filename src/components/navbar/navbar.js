@@ -63,6 +63,11 @@ const Navbar = () => {
                   </Link>
                 </li>
                 <li className="icon">
+                  <Link to="/comments">
+                    <i class="fa-regular fa-comment fa-2x"></i>
+                  </Link>
+                </li>
+                <li className="icon">
                   <Link to="/dash-board">
                     <i class="fa-solid fa-chart-line fa-2x"></i>
                   </Link>

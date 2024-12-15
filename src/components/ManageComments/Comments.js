@@ -1,29 +1,32 @@
 import { useEffect, useState } from "react";
-import "./User.css";
-import { getUserByUsername, deleteUser } from "../../services/userService";
+import {
+  deleteCommentAdmin,
+  getCommentsToxic,
+} from "../../services/userService";
 import { toast } from "react-toastify";
 import ModalDelete from "./ModalDelete";
 
-const Users = (props) => {
-  const [listUsers, setListUsers] = useState([]);
+const Posts = (props) => {
+  const [listComments, setListComments] = useState([]);
   // modal delete
   const [isShowModalDelete, setIsShowModalDelete] = useState(false);
   const [dataModal, setDataModal] = useState({});
 
   useEffect(() => {
-    fetchUsers();
+    fetchPosts();
   }, []);
 
-  const fetchUsers = async () => {
-    let response = await getUserByUsername("");
+  const fetchPosts = async () => {
+    let response = await getCommentsToxic();
 
     if (response && response.status === 200) {
-      setListUsers(response.users);
+      setListComments(response.comments);
+      console.log(response.comments);
     }
   };
 
-  const handleDeleteUser = async (user) => {
-    setDataModal(user);
+  const handleDeleteComment = async (post) => {
+    setDataModal(post);
     setIsShowModalDelete(true);
   };
 
@@ -32,11 +35,11 @@ const Users = (props) => {
     setDataModal({});
   };
 
-  const confirmDeleteUser = async () => {
-    let response = await deleteUser(dataModal);
+  const confirmDeletePost = async () => {
+    let response = await deleteCommentAdmin(dataModal.id);
     if (response && +response.status === 200) {
       toast.success(response.message);
-      await fetchUsers();
+      await fetchPosts();
       setIsShowModalDelete(false);
     } else {
       toast.error(response.message);
@@ -44,16 +47,16 @@ const Users = (props) => {
   };
 
   const handleRefresh = async () => {
-    await fetchUsers();
+    await fetchPosts();
   };
 
   return (
     <>
-      <div className="container-sm">
+      <div className="container">
         <div className="manage-user-container">
           <div className="user-header">
             <div className="title mt-3">
-              <h3>Manage Users</h3>
+              <h3>Manage Comments</h3>
             </div>
             <div className="actions my-3">
               <button
@@ -77,16 +80,13 @@ const Users = (props) => {
                     <span class="ml-2">ID</span>
                   </th>
                   <th>
-                    <span class="ml-2">Username</span>
+                    <span class="ml-2">Content</span>
                   </th>
                   <th>
-                    <span class="ml-2">Email</span>
+                    <span class="ml-2">Author</span>
                   </th>
                   <th>
-                    <span class="ml-4">Is_admin</span>
-                  </th>
-                  <th>
-                    <span class="ml-4">Is_locked</span>
+                    <span class="ml-4">Toxic</span>
                   </th>
                   <th>
                     <span class="ml-4">Actions</span>
@@ -94,9 +94,9 @@ const Users = (props) => {
                 </tr>
               </thead>
               <tbody>
-                {listUsers && listUsers.length > 0 ? (
+                {listComments && listComments.length > 0 ? (
                   <>
-                    {listUsers.map((item, index) => {
+                    {listComments.map((item, index) => {
                       return (
                         <tr class="border-bottom" key={`row-${index}`}>
                           <td>
@@ -108,21 +108,16 @@ const Users = (props) => {
                             </div>
                           </td>
                           <td>
-                            <div class="p-2">{item.username}</div>
+                            <div class="p-2">{item.content}</div>
                           </td>
                           <td>
                             <div class="p-2 d-flex flex-column">
-                              {item.email}
+                              {item.author}
                             </div>
                           </td>
                           <td>
                             <div class="p-2">
-                              {item.is_admin === true ? "True" : "False"}
-                            </div>
-                          </td>
-                          <td>
-                            <div class="p-2">
-                              {item.is_lock === true ? "True" : "False"}
+                              {item.toxic === true ? "True" : "False"}
                             </div>
                           </td>
                           <td>
@@ -130,9 +125,9 @@ const Users = (props) => {
                               <span
                                 title="Delete"
                                 className="delete"
-                                onClick={() => handleDeleteUser(item)}
+                                onClick={() => handleDeleteComment(item)}
                               >
-                                <i class="fa fa-lock"></i>
+                                <i class="fa fa-trash"></i>
                               </span>
                             </div>
                           </td>
@@ -143,7 +138,7 @@ const Users = (props) => {
                 ) : (
                   <>
                     <tr>
-                      <td>Not Found User</td>
+                      <td>Not Found Post</td>
                     </tr>
                   </>
                 )}
@@ -156,11 +151,11 @@ const Users = (props) => {
       <ModalDelete
         show={isShowModalDelete}
         handleClose={handleClose}
-        confirmDeleteUser={confirmDeleteUser}
+        confirmDeletePost={confirmDeletePost}
         dataModal={dataModal}
       />
     </>
   );
 };
 
-export default Users;
+export default Posts;

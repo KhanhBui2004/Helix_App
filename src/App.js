@@ -22,6 +22,7 @@ import Notification from "./components/Notification/Notification";
 import ProfileUser from "./components/Profile/ProfileUser";
 import DashBoard from "./components/DashBoard/DashBoard";
 import Posts from "./components/ManagePosts/Posts";
+import Comments from "./components/ManageComments/Comments";
 
 function LayoutUser() {
   const currentLocation = useLocation();
@@ -79,6 +80,7 @@ function LayoutAdmin() {
               <Route path="/admin" element={<Admin />} />
               <Route path="/user" element={<Users />} />
               <Route path="/posts" element={<Posts />} />
+              <Route path="/comments" element={<Comments />} />
               <Route path="/dash-board" element={<DashBoard />} />
             </Routes>
           </div>

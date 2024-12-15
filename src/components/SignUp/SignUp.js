@@ -54,6 +54,16 @@ const SignUp = (props) => {
       toast.error("User name is required");
       setObjCheckInput({ ...defaultValidInput, isUsername: false });
       return false;
+    } else {
+      if (username.length < 3) {
+        toast.error("User name is too short!");
+        setObjCheckInput({ ...defaultValidInput, isUsername: false });
+        return false;
+      } else if (username.length > 30) {
+        toast.error("User name is too long!");
+        setObjCheckInput({ ...defaultValidInput, isUsername: false });
+        return false;
+      }
     }
     if (!password) {
       setObjCheckInput({ ...defaultValidInput, isValidPassword: false });
