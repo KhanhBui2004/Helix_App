@@ -113,7 +113,9 @@ const Posts = (props) => {
                             </div>
                           </td>
                           <td>
-                            <div class="p-2">{item.toxic === true ? "True" : "False"}</div>
+                            <div class="p-2">
+                              {item.toxic === true ? "True" : "False"}
+                            </div>
                           </td>
                           <td>
                             <div class="p-2 icons">

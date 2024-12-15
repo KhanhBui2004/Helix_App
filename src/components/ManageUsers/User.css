@@ -31,6 +31,10 @@
       cursor: pointer;
     }
 
+    table {
+      width: 100%;
+    }
+
     .delete {
       color: red;
       cursor: pointer;
