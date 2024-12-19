@@ -1,4 +1,5 @@
 .navbar {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -108,4 +109,16 @@
 
 .setting:hover {
   cursor: pointer;
+}
+.pin-menu {
+  border-radius: 10px;
+  background: transparent;
+  position: absolute;
+  bottom: 150px;
+  left: 110px;
+  i {
+    margin-left: 3px;
+    color: #198754;
+    cursor: pointer;
+  }
 }

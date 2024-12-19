@@ -89,7 +89,7 @@ const Profile = () => {
   };
 
   return (
-    <div className="container mx-auto my-auto h-100">
+    <div className="container mx-auto my-auto">
       {currentUser ? (
         <>
           <div className="profile">
@@ -157,9 +157,10 @@ const Profile = () => {
         {activeTab === "Threads" && (
           <>
             {userPosts && userPosts.length > 0 ? (
-              userPosts.map((item) => (
-                <div className="content-threads" key={item.id}>
-                  <div className="content">
+              <>
+                {userPosts.map((item) => (
+                  <div className="content-post" key={item.id}>
+                    {/* <div className="content"> */}
                     <div className="content-right">
                       <div className="logo">
                         <img
@@ -214,11 +215,12 @@ const Profile = () => {
                         <i className="fa-solid fa-retweet fa-lg"></i>
                         <i className="fa-regular fa-share-from-square fa-lg"></i>
                       </div>
-                      <div className="replies">4 replies</div>
+                      {/* <div className="replies">4 replies</div> */}
                     </div>
+                    {/* </div> */}
                   </div>
-                </div>
-              ))
+                ))}
+              </>
             ) : (
               <p>No threads available.</p>
             )}
@@ -240,7 +242,7 @@ const Profile = () => {
                   <div className="info-user">
                     <div className="info">
                       <p className="username">{follower.username}</p>
-                      <p className="followers">22k followers</p>
+                      {/* <p className="followers">22k followers</p> */}
                     </div>
                   </div>
                 </div>

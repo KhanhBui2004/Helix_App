@@ -6,6 +6,7 @@ import {
   getUserLiked,
   unLikePost,
   getUser,
+  getUserFollowers,
 } from "../../services/userService";
 import { UserContext } from "../../context/UserContext";
 import ModalEditProfile from "./ModalEditProfile";
@@ -22,6 +23,8 @@ const ProfileUser = () => {
   const [liked, setLiked] = useState([]);
   const [selectedItem, setSelectedItem] = useState(null);
   const [isShowModalThread, setIsShowModalThread] = useState(false);
+  const [followers, setFollowers] = useState([]);
+  const [activeTab, setActiveTab] = useState("Threads");
 
   const onHideModalThread = () => {
     setIsShowModalThread(false);
@@ -105,9 +108,17 @@ const ProfileUser = () => {
     fetchCurrentUser();
   }, []);
 
+  const fetchFollow = async (id) => {
+    let response = await getUserFollowers(id);
+    if (response && +response.status === 200) {
+      setFollowers(response.followers);
+    }
+  };
+
   useEffect(() => {
     console.log(currentUser);
     fetchUserPosts(userId);
+    fetchFollow(userId);
   }, [userId]);
 
   return (
@@ -121,7 +132,7 @@ const ProfileUser = () => {
                 <div className="content-info">
                   <p className="name">{currentUser.full_name}</p>
                   <p className="username">{currentUser.username}</p>
-                  <p className="follower">203 followers</p>
+                  <p className="follower">{followers.length} followers</p>
                 </div>
                 <div className="avt">
                   <img
@@ -137,87 +148,130 @@ const ProfileUser = () => {
 
         <div className="threads">
           <div className="title">
-            <div className="content-title selected">
+            <div
+              className={`content-title ${
+                activeTab === "Threads" ? "selected" : ""
+              }`}
+              onClick={() => setActiveTab("Threads")}
+            >
               <p>Threads</p>
             </div>
-            <div className="content-title">
-              <p>Replies</p>
+            <div
+              className={`content-title ${
+                activeTab === "Followers" ? "selected" : ""
+              }`}
+              onClick={() => setActiveTab("Followers")}
+            >
+              <p>Followers</p>
             </div>
           </div>
-          {userPosts && userPosts.length > 0 ? (
+          {activeTab === "Threads" && (
             <>
-              {userPosts.map((item, index) => {
-                return (
-                  <div className="content-threads">
-                    <div className="content">
-                      <div className="content-right">
-                        <div className="logo">
-                          <img
-                            src={
-                              "http://localhost:5000" + currentUser.media_url
-                            }
-                            alt="logo"
-                            width="40"
-                            height="40"
-                          ></img>
-                          <div className="follow">
-                            <i class="fa-solid fa-circle-plus"></i>
+              {userPosts && userPosts.length > 0 ? (
+                <>
+                  {userPosts.map((item, index) => {
+                    return (
+                      <div className="content-post">
+                        {/* <div className="content"> */}
+                        <div className="content-right">
+                          <div className="logo">
+                            <img
+                              src={
+                                "http://localhost:5000" + currentUser.media_url
+                              }
+                              alt="logo"
+                              width="40"
+                              height="40"
+                            ></img>
+                            <div className="follow">
+                              <i class="fa-solid fa-circle-plus"></i>
+                            </div>
                           </div>
+                        </div>
+                        <div className="content-left">
+                          <div className="top">
+                            <div className="username">
+                              {currentUser.username}
+                              <i class="fa-solid fa-circle-check"></i>
+                            </div>
+                            <div className="time">
+                              {getTimePost(item.created_at)}{" "}
+                              <i class="fa-solid fa-ellipsis"></i>
+                            </div>
+                          </div>
+                          <div className="title">{item.content}</div>
+                          {item.media_url ? (
+                            <div className="img-content">
+                              <img
+                                src={"http://localhost:5000" + item.media_url}
+                                alt="img"
+                                width="100%"
+                                height="316"
+                              ></img>
+                            </div>
+                          ) : (
+                            <></>
+                          )}
+                          <div className="icon">
+                            <i
+                              className={
+                                liked.includes(item.id)
+                                  ? "fa-solid fa-heart fa-lg liked"
+                                  : "fa-regular fa-heart fa-lg"
+                              }
+                              onClick={() => handleLike(item.id)}
+                            ></i>
+                            <i
+                              class="fa-regular fa-comment fa-lg"
+                              onClick={() => {
+                                setSelectedItem(item);
+                                setIsShowModalThread(true);
+                              }}
+                            ></i>
+                            <i class="fa-solid fa-retweet fa-lg"></i>
+                            <i class="fa-regular fa-share-from-square fa-lg"></i>
+                          </div>
+                          {/* <div className="replies">4 replies</div> */}
                         </div>
                       </div>
-                      <div className="content-left">
-                        <div className="top">
-                          <div className="username">
-                            {currentUser.username}
-                            <i class="fa-solid fa-circle-check"></i>
-                          </div>
-                          <div className="time">
-                            {getTimePost(item.created_at)}{" "}
-                            <i class="fa-solid fa-ellipsis"></i>
-                          </div>
-                        </div>
-                        <div className="title">{item.content}</div>
-                        {item.media_url ? (
-                          <div className="img-content">
-                            <img
-                              src={"http://localhost:5000" + item.media_url}
-                              alt="img"
-                              width="100%"
-                              height="316"
-                            ></img>
-                          </div>
-                        ) : (
-                          <></>
-                        )}
-                        <div className="icon">
-                          <i
-                            className={
-                              liked.includes(item.id)
-                                ? "fa-solid fa-heart fa-lg liked"
-                                : "fa-regular fa-heart fa-lg"
-                            }
-                            onClick={() => handleLike(item.id)}
-                          ></i>
-                          <i
-                            class="fa-regular fa-comment fa-lg"
-                            onClick={() => {
-                              setSelectedItem(item);
-                              setIsShowModalThread(true);
-                            }}
-                          ></i>
-                          <i class="fa-solid fa-retweet fa-lg"></i>
-                          <i class="fa-regular fa-share-from-square fa-lg"></i>
-                        </div>
-                        <div className="replies">4 replies</div>
+                      // </div>
+                    );
+                  })}
+                </>
+              ) : (
+                <>
+                  <p>No threads available.</p>
+                </>
+              )}
+            </>
+          )}
+
+          {activeTab === "Followers" && (
+            <div className="followers-list">
+              {followers && followers.length > 0 ? (
+                followers.map((follower) => (
+                  <div className="item">
+                    <div className="avt">
+                      <img
+                        src={"http://localhost:5000" + follower.media_url}
+                        width={50}
+                        height={50}
+                      ></img>
+                    </div>
+                    <div className="info-user">
+                      <div className="info">
+                        <p className="username">{follower.username}</p>
+                        <p className="followers">22k followers</p>
                       </div>
                     </div>
                   </div>
-                );
-              })}
-            </>
-          ) : (
-            <></>
+                ))
+              ) : (
+                <p>No followers yet.</p>
+              )}
+            </div>
           )}
+
           {selectedItem ? (
             <>
               <ModalThread

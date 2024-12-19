@@ -92,7 +92,7 @@ const Home = (props) => {
 
   return (
     <>
-      <div className="aaaa">
+      {/* <div className="aaaa">
         For you{" "}
         <i
           class="fa-solid fa-angle-down"
@@ -104,7 +104,7 @@ const Home = (props) => {
             <li>Following</li>
           </ul>
         </div>
-      </div>
+      </div> */}
       <div className="container mx-auto my-auto">
         <div className="post">
           <div className="logo">
@@ -128,7 +128,7 @@ const Home = (props) => {
             {Post.map((item, index) => {
               return (
                 <>
-                  <div className="content">
+                  <div className="content-post">
                     <div className="content-right">
                       <div className="logo">
                         <img
@@ -163,7 +163,9 @@ const Home = (props) => {
                           <i class="fa-solid fa-ellipsis"></i>
                         </div>
                       </div>
-                      <div className="title">{item.content}</div>
+                      <div className="title">
+                        <p>{item.content}</p>
+                      </div>
                       {item.media_url ? (
                         <div className="img-content">
                           <img

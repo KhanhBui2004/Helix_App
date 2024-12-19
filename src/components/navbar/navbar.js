@@ -5,10 +5,11 @@ import { toast } from "react-toastify";
 import { logoutUser } from "../../services/userService";
 import { UserContext } from "../../context/UserContext";
 
-const Navbar = () => {
+const Navbar = ({ views, handlePinToggle, pinnedViews }) => {
   const { user, logoutContext } = useContext(UserContext);
   const [listView, setListView] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
+  const [showPinMenu, setShowPinMenu] = useState(false); // State để điều khiển hiển thị menu
   let navigate = useNavigate();
 
   const changeMode = () => {
@@ -39,9 +40,11 @@ const Navbar = () => {
   return (
     <>
       <nav class="navbar bg-transparent border-body " data-bs-theme="dark">
-        <div className="logo mt-2">
-          <img src="/img/logo_Helix.png" width={50}></img>
-        </div>
+        <a href="/">
+          <div className="logo mt-2">
+            <img src="/img/logo_Helix.png" width={50}></img>
+          </div>
+        </a>
 
         {user && user.account.is_admin === true ? (
           <>
@@ -104,10 +107,68 @@ const Navbar = () => {
                     <i class="fa-solid fa-user fa-2x"></i>
                   </Link>
                 </li>
+                <li className="icon">
+                  <Link
+                    onClick={() => setShowPinMenu(!showPinMenu)}
+                  >
+                    <i class="fa-solid fa-thumbtack fa-2x"></i>
+                  </Link>
+                </li>
               </ul>
             </div>
           </>
         )}
+
+        {/* Menu pin */}
+        {showPinMenu && (
+          <div className="pin-menu">
+            {views.map((view) => (
+              <div
+                key={view.id}
+                className={`view-item ${
+                  pinnedViews.includes(view.id) ? "pinned" : ""
+                }`}
+              >
+                <label>
+                  <input
+                    type="checkbox"
+                    checked={pinnedViews.includes(view.id)}
+                    onChange={() => handlePinToggle(view.id)}
+                    style={{ display: "none" }} // Ẩn checkbox
+                  />
+                  {view.id === 1 ? (
+                    <i class="fa-solid fa-house"></i>
+                  ) : view.id === 2 ? (
+                    <i class="fa-solid fa-heart"></i>
+                  ) : (
+                    <i class="fa-solid fa-user"></i>
+                  )}
+                </label>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* <h4>Danh sách giao diện</h4>
+        {views.map((view) => (
+          <div
+            key={view.id}
+            className={`view-item ${
+              pinnedViews.includes(view.id) ? "pinned" : ""
+            }`}
+            draggable
+            onDragStart={(e) => e.dataTransfer.setData("viewId", view.id)}
+          >
+            <label>
+              <input
+                type="checkbox"
+                checked={pinnedViews.includes(view.id)}
+                onChange={() => handlePinToggle(view.id)}
+              />
+              {view.name}
+            </label>
+          </div>
+        ))} */}
 
         <div className="setting mb-3">
           <i

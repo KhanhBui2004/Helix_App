@@ -48,7 +48,7 @@ const Notification = () => {
                   <div className="info-user">
                     <div className="info1">
                       <p className="username">{item.username}</p>
-                      <p className="followers">22k followers</p>
+                      {/* <p className="followers">22k followers</p> */}
                     </div>
                     <div className="btn-follow">
                       <button

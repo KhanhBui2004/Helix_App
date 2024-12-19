@@ -98,7 +98,7 @@ const ModalThread = (props) => {
         backdropClassName="custom-backdrop"
       >
         <Modal.Body>
-          <div className="content">
+          <div className="content-post">
             <div className="content-right">
               <div className="logo">
                 <img

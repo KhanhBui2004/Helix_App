@@ -42,3 +42,52 @@
 .navbar {
   position: fixed;
 }
+
+.pinned-views {
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+}
+
+.pinned-views-1 {
+  grid-template-columns: 1fr;
+}
+
+.pinned-views-2 {
+  grid-template-columns: 1fr 1fr;
+}
+
+.pinned-views-3 {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.pinned-view {
+  width: 100%;
+  border: 1px solid #ccc;
+  padding: 10px;
+  background: #f9f9f9;
+}
+
+.pinned-view:active {
+  cursor: grabbing;
+}
+
+.view-item {
+  padding: 5px;
+  cursor: grab;
+}
+
+.view-item.pinned {
+  font-weight: bold;
+}
+
+.route-container {
+  height: 100vh; /* Chiếm toàn bộ chiều cao màn hình */
+  overflow-y: auto; /* Cho phép cuộn dọc */
+  padding: 20px;
+}
+
+.route-container::-webkit-scrollbar {
+  width: 0 !important;
+  display: none;
+}

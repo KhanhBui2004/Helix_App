@@ -74,9 +74,9 @@ body {
   }
 }
 
-.content {
+.content-post {
   padding-top: 10px;
-  border-bottom: solid #d3d1d1be !important;
+  border-bottom: solid #d3d1d1be;
   display: flex;
   .content-right {
     margin-right: 10px;
@@ -132,6 +132,9 @@ body {
     .title {
       margin-bottom: 10px;
       font-size: 14px;
+      pre {
+        font-family: "Roboto", sans-serif;
+      }
     }
     .img-content {
       margin-bottom: 10px;

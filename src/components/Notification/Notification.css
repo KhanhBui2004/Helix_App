@@ -1,5 +1,6 @@
 body {
-  background: #d3d1d1be;
+  background: #fff;
+  /* background: linear-gradient(to right, #87c887, #357e35, #98fb98); */
 }
 
 .container {
