@@ -184,7 +184,7 @@ const ProfileUser = () => {
                               height="40"
                             ></img>
                             <div className="follow">
-                              <i class="fa-solid fa-circle-plus"></i>
+                              {/* <i class="fa-solid fa-circle-plus"></i> */}
                             </div>
                           </div>
                         </div>
@@ -192,11 +192,11 @@ const ProfileUser = () => {
                           <div className="top">
                             <div className="username">
                               {currentUser.username}
-                              <i class="fa-solid fa-circle-check"></i>
+                              {/* <i class="fa-solid fa-circle-check"></i> */}
                             </div>
                             <div className="time">
                               {getTimePost(item.created_at)}{" "}
-                              <i class="fa-solid fa-ellipsis"></i>
+                              {/* <i class="fa-solid fa-ellipsis"></i> */}
                             </div>
                           </div>
                           <div className="title">{item.content}</div>
@@ -228,8 +228,8 @@ const ProfileUser = () => {
                                 setIsShowModalThread(true);
                               }}
                             ></i>
-                            <i class="fa-solid fa-retweet fa-lg"></i>
-                            <i class="fa-regular fa-share-from-square fa-lg"></i>
+                            {/* <i class="fa-solid fa-retweet fa-lg"></i> */}
+                            {/* <i class="fa-regular fa-share-from-square fa-lg"></i> */}
                           </div>
                           {/* <div className="replies">4 replies</div> */}
                         </div>

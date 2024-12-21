@@ -82,6 +82,7 @@
 }
 
 .route-container {
+  border-radius: 30px;
   height: 100vh; /* Chiếm toàn bộ chiều cao màn hình */
   overflow-y: auto; /* Cho phép cuộn dọc */
   padding: 20px;

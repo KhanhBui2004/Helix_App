@@ -121,11 +121,48 @@ body {
         }
       }
       .time {
+        position: relative;
         font-size: 12px;
         color: #989898;
         i {
           color: #000;
           margin-left: 10px;
+        }
+
+        .fa-ellipsis:hover {
+          cursor: pointer;
+        }
+
+        .hide-button-container {
+          margin-top: 10px;
+          display: none; /* Ẩn nút mặc định */
+        }
+        .button-container {
+          position: absolute;
+          left: 50px;
+          top: 5px;
+          margin-top: 10px;
+          display: flex; /* Ẩn nút mặc định */
+          flex-direction: column;
+          gap: 10px;
+          padding: 10px;
+          background-color: #d3d1d1be;
+          border-radius: 5px;
+        }
+        .button-container button {
+          margin-right: 5px;
+          padding: 5px 10px;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+        }
+        .edit-btn {
+          background-color: #4caf50;
+          color: white;
+        }
+        .delete-btn {
+          background-color: #f44336;
+          color: white;
         }
       }
     }

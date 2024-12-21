@@ -182,7 +182,7 @@ const Profile = () => {
                         </div>
                         <div className="time">
                           {new Date(item.created_at).toLocaleString()}{" "}
-                          <i className="fa-solid fa-ellipsis"></i>
+                          {/* <i className="fa-solid fa-ellipsis"></i> */}
                         </div>
                       </div>
                       <div className="title">{item.content}</div>
@@ -212,8 +212,8 @@ const Profile = () => {
                             setIsShowModalThread(true);
                           }}
                         ></i>
-                        <i className="fa-solid fa-retweet fa-lg"></i>
-                        <i className="fa-regular fa-share-from-square fa-lg"></i>
+                        {/* <i className="fa-solid fa-retweet fa-lg"></i>
+                        <i className="fa-regular fa-share-from-square fa-lg"></i> */}
                       </div>
                       {/* <div className="replies">4 replies</div> */}
                     </div>

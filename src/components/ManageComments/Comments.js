@@ -35,7 +35,7 @@ const Posts = (props) => {
     setDataModal({});
   };
 
-  const confirmDeletePost = async () => {
+  const confirmDeleteComment = async () => {
     let response = await deleteCommentAdmin(dataModal.id);
     if (response && +response.status === 200) {
       toast.success(response.message);
@@ -138,7 +138,7 @@ const Posts = (props) => {
                 ) : (
                   <>
                     <tr>
-                      <td>Not Found Post</td>
+                      <td>Not Found Comment</td>
                     </tr>
                   </>
                 )}
@@ -151,7 +151,7 @@ const Posts = (props) => {
       <ModalDelete
         show={isShowModalDelete}
         handleClose={handleClose}
-        confirmDeletePost={confirmDeletePost}
+        confirmDeleteComment={confirmDeleteComment}
         dataModal={dataModal}
       />
     </>

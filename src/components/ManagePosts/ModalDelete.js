@@ -4,7 +4,16 @@ import Button from "react-bootstrap/Button";
 const ModalDelete = (props) => {
   return (
     <>
-      <Modal show={props.show} onHide={props.handleClose} centered>
+      <Modal
+        show={props.show}
+        onHide={props.handleClose}
+        // centered
+        style={{
+          overlay: {
+            backgroundColor: "rgba(0, 0, 0, 0.9)", // Làm mờ nền
+          },
+        }}
+      >
         <Modal.Header closeButton>
           <Modal.Title>Confirm Delete Post</Modal.Title>
         </Modal.Header>

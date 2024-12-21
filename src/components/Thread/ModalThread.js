@@ -1,15 +1,31 @@
-import { Modal } from "react-bootstrap";
+import { Button, Modal } from "react-bootstrap";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import "./ModalThread.css";
 import { toast } from "react-toastify";
-import { postComment, getPostComments } from "../../services/userService";
+import {
+  postComment,
+  getPostComments,
+  handleUpdatePost,
+  handleDeletePost,
+  handleDeleteComment,
+} from "../../services/userService";
+import ModalDelete from "../ManagePosts/ModalDelete";
+import ModalDeleteCmt from "../ManageComments/ModalDelete";
 
 const ModalThread = (props) => {
   const { currentPost, user, dateTime, liked } = props;
   const [comment, setComment] = useState("");
   const [postComments, setPostComments] = useState([]);
+  const [listView, setListView] = useState(false);
+  const [visibleId, setVisibleId] = useState(null);
+  const [updatePost, setUpdatePost] = useState(false);
+  const [titlePost, setTitlePost] = useState(currentPost.content);
+  const [isShowModalDelete, setIsShowModalDelete] = useState(false);
+  const [isShowModalDeleteCmt, setIsShowModalDeleteCmt] = useState(false);
+  const [dataCmtModal, setDataCmtModal] = useState({});
   const textareaRefs = useRef([]);
+  const postContentRef = useRef(null);
   const divRefs = useRef([]);
 
   useEffect(() => {
@@ -83,6 +99,75 @@ const ModalThread = (props) => {
     return day + "d";
   };
 
+  const toggleView = (id) => {
+    setVisibleId(visibleId === id ? null : id); // Bật/tắt hiển thị cho phần tử cụ thể
+  };
+
+  const handlePostFocus = () => {
+    if (postContentRef.current) {
+      postContentRef.current.focus(); // Đặt focus vào thẻ input
+    }
+  };
+
+  const editItem = () => {
+    setUpdatePost(true);
+    setListView(false);
+    handlePostFocus();
+  };
+
+  const UpdatePost = async () => {
+    let response = await handleUpdatePost(currentPost.id, {
+      content: titlePost,
+    });
+    if (response && +response.status === 200) {
+      setUpdatePost(false);
+      toast.success(response.message);
+    } else {
+      setUpdatePost(false);
+      toast.error(response.message);
+    }
+  };
+
+  const deleteItem = () => {
+    setIsShowModalDelete(true);
+    setListView(false);
+  };
+
+  const handleClose = () => {
+    setIsShowModalDelete(false);
+  };
+
+  const DeletePost = async () => {
+    let response = await handleDeletePost(currentPost.id);
+    if (response && +response.status === 200) {
+      toast.success(response.message);
+      window.location.reload();
+    } else {
+      toast.error(response.message);
+    }
+  };
+
+  const deleteComment = (data) => {
+    setDataCmtModal(data);
+    setIsShowModalDeleteCmt(true);
+    setVisibleId(null);
+  };
+
+  const handleCloseCmt = () => {
+    setDataCmtModal({});
+    setIsShowModalDeleteCmt(false);
+  };
+
+  const DeleteComment = async () => {
+    let response = await handleDeleteComment(dataCmtModal.id);
+    if (response && +response.status === 200) {
+      toast.success(response.message);
+      window.location.reload();
+    } else {
+      toast.error(response.message);
+    }
+  };
+
   useEffect(() => {
     if (props.show) {
       fetchComment();
@@ -108,7 +193,7 @@ const ModalThread = (props) => {
                   height="40"
                 ></img>
                 <div className="follow">
-                  <i class="fa-solid fa-circle-plus"></i>
+                  {/* <i class="fa-solid fa-circle-plus"></i> */}
                 </div>
               </div>
             </div>
@@ -124,16 +209,57 @@ const ModalThread = (props) => {
                 >
                   <div className="username">
                     {currentPost.author}
-                    <i class="fa-solid fa-circle-check"></i>
+                    {/* <i class="fa-solid fa-circle-check"></i> */}
                   </div>
                 </Link>
 
                 <div className="time">
                   {getTimePost(currentPost.created_at)}{" "}
-                  <i class="fa-solid fa-ellipsis"></i>
+                  {user.account.username === currentPost.author ? (
+                    <i
+                      class="fa-solid fa-ellipsis"
+                      onClick={() => setListView(!listView)}
+                    ></i>
+                  ) : (
+                    ""
+                  )}
+                  <div
+                    class={
+                      listView ? "button-container" : "hide-button-container"
+                    }
+                  >
+                    <button class="edit-btn" onClick={() => editItem()}>
+                      Sửa
+                    </button>
+                    <button class="delete-btn" onClick={() => deleteItem()}>
+                      Xóa
+                    </button>
+                  </div>
                 </div>
               </div>
-              <div className="title">{currentPost.content}</div>
+              <div className="title">
+                {/* {currentPost.content} */}
+                <input
+                  ref={postContentRef}
+                  className={updatePost ? "post-title" : "post-title-update"}
+                  type="text"
+                  value={titlePost}
+                  onChange={(event) => {
+                    setTitlePost(event.target.value);
+                  }}
+                ></input>
+                <div
+                  className={updatePost ? "button-group" : "hide-button-group "}
+                >
+                  <Button
+                    className="btn btn-success btn-sm"
+                    onClick={() => UpdatePost()}
+                  >
+                    OK
+                  </Button>
+                  <Button className="btn btn-danger btn-sm mx-1">Hủy</Button>
+                </div>
+              </div>
               {currentPost.media_url ? (
                 <div className="img-content">
                   <img
@@ -156,8 +282,8 @@ const ModalThread = (props) => {
                   onClick={() => handleLike(currentPost.id)}
                 ></i>
                 <i class="fa-regular fa-comment fa-lg"></i>
-                <i class="fa-solid fa-retweet fa-lg"></i>
-                <i class="fa-regular fa-share-from-square fa-lg"></i>
+                {/* <i class="fa-solid fa-retweet fa-lg"></i> */}
+                {/* <i class="fa-regular fa-share-from-square fa-lg"></i> */}
               </div>
             </div>
           </div>
@@ -212,7 +338,28 @@ const ModalThread = (props) => {
                           </Link>
                         </div>
                         <div className="report">
-                          <i className="fa-solid fa-flag"></i>
+                          {user.account.username === item.user.username ? (
+                            <i
+                              class="fa-solid fa-ellipsis"
+                              onClick={() => toggleView(item.id)}
+                            ></i>
+                          ) : (
+                            ""
+                          )}
+                          <div
+                            class={
+                              visibleId === item.id
+                                ? "button-container"
+                                : "hide-button-container"
+                            }
+                          >
+                            <button
+                              class="delete-btn"
+                              onClick={() => deleteComment(item)}
+                            >
+                              Xóa
+                            </button>
+                          </div>
                         </div>
                       </div>
                       <div
@@ -237,6 +384,20 @@ const ModalThread = (props) => {
           </div>
         </Modal.Body>
       </Modal>
+
+      <ModalDelete
+        show={isShowModalDelete}
+        handleClose={handleClose}
+        confirmDeletePost={DeletePost}
+        dataModal={currentPost}
+      />
+
+      <ModalDeleteCmt
+        show={isShowModalDeleteCmt}
+        handleClose={handleCloseCmt}
+        confirmDeleteComment={DeleteComment}
+        dataModal={dataCmtModal}
+      />
     </>
   );
 };

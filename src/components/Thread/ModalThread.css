@@ -71,7 +71,41 @@
     }
 
     .content-comment .user .report {
-      cursor: pointer; /* Con trỏ hiển thị khi hover */
+      .fa-ellipsis:hover {
+        cursor: pointer;
+      }
+
+      .hide-button-container {
+        margin-top: 10px;
+        display: none; /* Ẩn nút mặc định */
+      }
+      .button-container {
+        position: absolute;
+        /* left: 50px; */
+        /* top: 5px; */
+        margin-top: 10px;
+        display: flex; /* Ẩn nút mặc định */
+        flex-direction: column;
+        gap: 10px;
+        padding: 10px;
+        background-color: #d3d1d1be;
+        border-radius: 5px;
+      }
+      .button-container button {
+        margin-right: 5px;
+        padding: 5px 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      .edit-btn {
+        background-color: #4caf50;
+        color: white;
+      }
+      .delete-btn {
+        background-color: #f44336;
+        color: white;
+      }
     }
 
     .content-comment .title {
@@ -91,4 +125,26 @@
       background-color: #f0f2f5;
     }
   }
+}
+
+.post-title {
+  width: 100%;
+  outline: 1px;
+  background-color: #d3d1d1be;
+}
+
+.post-title-update {
+  border: none;
+  outline: none;
+}
+
+.button-group {
+  margin-top: 5px;
+  gap: 5px;
+  display: flex;
+  justify-content: end;
+}
+
+.hide-button-group {
+  display: none;
 }

@@ -19,6 +19,10 @@ const UserProvider = ({ children }) => {
     setUser({ ...userData, isLoading: false });
   };
 
+  const setLoading = (state) => {
+    setUser({ ...user, isLoading: state });
+  };
+
   // Logout updates the user data to default
   const logoutContext = () => {
     setUser({ ...userDefault, isLoading: false });
@@ -66,7 +70,9 @@ const UserProvider = ({ children }) => {
   }, [user]); // useEffect sẽ chạy khi `user` thay đổi
 
   return (
-    <UserContext.Provider value={{ user, loginContext, logoutContext }}>
+    <UserContext.Provider
+      value={{ user, loginContext, logoutContext, setLoading }}
+    >
       {children}
     </UserContext.Provider>
   );

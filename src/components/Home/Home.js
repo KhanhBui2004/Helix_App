@@ -11,8 +11,7 @@ import { Link } from "react-router-dom";
 import ModalThread from "../Thread/ModalThread";
 
 const Home = (props) => {
-  const { user } = useContext(UserContext);
-  const [listView, setListView] = useState(false);
+  const { user, setLoading } = useContext(UserContext);
   const [Post, setPost] = useState([]);
   const [liked, setLiked] = useState([]);
   const [dateTime, setDateTime] = useState(new Date());
@@ -138,7 +137,7 @@ const Home = (props) => {
                           height="40"
                         ></img>
                         <div className="follow">
-                          <i class="fa-solid fa-circle-plus"></i>
+                          {/* <i class="fa-solid fa-circle-plus"></i> */}
                         </div>
                       </div>
                     </div>
@@ -154,13 +153,13 @@ const Home = (props) => {
                         >
                           <div className="username">
                             {item.author}
-                            <i class="fa-solid fa-circle-check"></i>
+                            {/* <i class="fa-solid fa-circle-check"></i> */}
                           </div>
                         </Link>
 
                         <div className="time">
                           {getTimePost(item.created_at)}{" "}
-                          <i class="fa-solid fa-ellipsis"></i>
+                          {/* <i class="fa-solid fa-ellipsis"></i> */}
                         </div>
                       </div>
                       <div className="title">
@@ -194,8 +193,8 @@ const Home = (props) => {
                             setIsShowModalThread(true);
                           }}
                         ></i>
-                        <i class="fa-solid fa-retweet fa-lg"></i>
-                        <i class="fa-regular fa-share-from-square fa-lg"></i>
+                        {/* <i class="fa-solid fa-retweet fa-lg"></i> */}
+                        {/* <i class="fa-regular fa-share-from-square fa-lg"></i> */}
                       </div>
                       {/* <div className="replies">4 replies</div> */}
                     </div>

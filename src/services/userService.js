@@ -92,6 +92,18 @@ const deletePostAdmin = (postID) => {
   return axios.delete(`/api/post/delete/${postID}`);
 };
 
+const handleUpdatePost = (postId, data) => {
+  return axios.put(`/api/post/${postId}`, data);
+};
+
+const handleDeletePost = (postId) => {
+  return axios.delete(`/api/post/${postId}`);
+};
+
+const handleDeleteComment = (cmtId) => {
+  return axios.delete(`/api/comment/${cmtId}`);
+};
+
 const updateUser = (form) => {
   return axios.put("/api/user/profile", form);
 };
@@ -145,6 +157,9 @@ export {
   logoutUser,
   getPosts,
   getUserPosts,
+  handleUpdatePost,
+  handleDeletePost,
+  handleDeleteComment,
   updateUser,
   getUserByUsername,
   deleteUser,
